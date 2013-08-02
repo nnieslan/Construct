@@ -374,5 +374,41 @@ namespace Coldwater.Construct.Build.Activities.Test
 
         #endregion
 
+
+
+        public void Connect(int pollingInterval, int timeout, System.ComponentModel.ISynchronizeInvoke synchronizingObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string LastChangedByDisplayName
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public System.Collections.ObjectModel.ReadOnlyCollection<int> RequestIds
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public Guid RequestIntermediateLogs()
+        {
+            throw new NotImplementedException();
+        }
+
+        public System.Collections.ObjectModel.ReadOnlyCollection<IQueuedBuild> Requests
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool Wait(TimeSpan pollingInterval, TimeSpan timeout, System.ComponentModel.ISynchronizeInvoke synchronizingObject)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Wait(TimeSpan pollingInterval, TimeSpan timeout)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

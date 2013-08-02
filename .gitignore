@@ -2,6 +2,11 @@
 [Bb]in/
 [Oo]bj/
 
+# Construct artifacts
+build.*.wrn
+build.*.err
+build.*.log
+
 # mstest test results
 TestResults
 

@@ -274,5 +274,62 @@ namespace Coldwater.Construct.Build.Activities.Test
         }
 
         #endregion
+
+
+        public System.Collections.Generic.IDictionary<string, object> AttachedProperties
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public int BatchSize
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void CopyFrom(IBuildDefinition buildDefinition)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DateTime DateCreated
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public DefinitionQueueStatus QueueStatus
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void Refresh(string[] propertyNameFilters, QueryOptions queryOptions)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DefinitionTriggerType TriggerType
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

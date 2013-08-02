@@ -68,6 +68,12 @@ namespace Coldwater.Construct.Build.Activities.Test
         {
             throw new NotImplementedException();
         }
+
+
+        public void CopyFrom(IWorkspaceTemplate source)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.Build.Client;
 
@@ -563,6 +565,11 @@ namespace Coldwater.Construct.Build.Activities.Test
         {
             throw new NotImplementedException();
         }
+        
+        IQueuedBuild[] QueueBuild(IEnumerable<IBuildRequest> requests, QueueOptions options)
+        {
+            throw new NotImplementedException();
+        }
 
         public IBuildAgent[] SaveBuildAgents(IBuildAgent[] agents)
         {
@@ -609,6 +616,17 @@ namespace Coldwater.Construct.Build.Activities.Test
             throw new NotImplementedException();
         }
 
+        public IQueuedBuild[] StartQueuedBuildsNow(int[] builds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueuedBuild[] StartQueuedBuildsNow(IQueuedBuild[] builds)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public Microsoft.TeamFoundation.Client.TeamFoundationServer TeamFoundationServer
         {
             get { throw new NotImplementedException(); }
@@ -632,5 +650,131 @@ namespace Coldwater.Construct.Build.Activities.Test
         }
 
         #endregion
+
+
+        public IAsyncResult BeginQueryBuildDefinitions(IBuildDefinitionSpec[] specs, AsyncCallback callback, object state)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncResult BeginQueryBuildDefinitionsByUri(Uri[] uris, string[] propertyNameFilters, QueryOptions options, AsyncCallback callback, object state)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncResult BeginQueryBuilds(IBuildDetailSpec[] specs, AsyncCallback callback, object state)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncResult BeginQueryBuildsByUri(Uri[] buildUris, string[] informationTypes, QueryOptions queryOptions, QueryDeletedOption queryDeletedOption, AsyncCallback callback, object state)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncResult BeginQueryQueuedBuilds(IQueuedBuildSpec[] specs, AsyncCallback callback, object state)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildAgentSpec CreateBuildAgentSpec(string name, string computer, string[] propertyNameFilters, List<string> tags)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildControllerSpec CreateBuildControllerSpec(string name, string computer, string[] propertyNameFilters, bool includeAgents)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildDefinitionSpec CreateBuildDefinitionSpec(string teamProject, string definitionName, string[] propertyNameFilters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildDefinitionQueryResult[] EndQueryBuildDefinitions(IAsyncResult result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildDefinition[] EndQueryBuildDefinitionsByUri(IAsyncResult result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildQueryResult[] EndQueryBuilds(IAsyncResult result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildDetail[] EndQueryBuildsByUri(IAsyncResult result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueuedBuildQueryResult[] EndQueryQueuedBuilds(IAsyncResult result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildDefinition[] GetAffectedBuildDefinitions(string[] serverItems, DefinitionTriggerType triggerType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildDetail GetBuild(Uri buildUri, string[] informationTypes, QueryOptions queryOptions, QueryDeletedOption queryDeletedOption)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildAgent GetBuildAgent(Uri buildAgentUri, string[] propertyNameFilters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildController GetBuildController(Uri buildControllerUri, string[] propertyNameFilters, bool includeAgents)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildDefinition GetBuildDefinition(Uri buildDefinitionUri, string[] propertyNameFilters, QueryOptions options)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildAgent[] QueryBuildAgentsByUri(Uri[] buildAgentUris, string[] propertyNameFilters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildController[] QueryBuildControllersByUri(Uri[] buildControllerUris, string[] propertyNameFilters, bool includeAgents)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBuildDefinition[] QueryBuildDefinitionsByUri(Uri[] buildDefinitionUris, string[] propertyNameFilters, QueryOptions options)
+        {
+            throw new NotImplementedException();
+        }
+
+        IQueuedBuild[] IBuildServer.QueueBuild(IEnumerable<IBuildRequest> requests, QueueOptions options)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueuedBuild[] RetryQueuedBuilds(IQueuedBuild[] queuedBuilds, Guid batchId, QueuedBuildRetryOption retryOption)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueuedBuild[] RetryQueuedBuilds(IQueuedBuild[] queuedBuilds, Guid batchId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueuedBuild[] RetryQueuedBuilds(IQueuedBuild[] queuedBuilds)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
