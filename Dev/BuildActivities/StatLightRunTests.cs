@@ -1,5 +1,5 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
-using Coldwater.Construct.Build.TfsServices;
+using Construct.Build.TfsServices;
 using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.Build.Client;
 using Microsoft.TeamFoundation.Build.Workflow.Activities;
@@ -18,7 +18,7 @@ using Microsoft.TeamFoundation.Lab.Workflow.Activities;
 using Microsoft.TeamFoundation.TestManagement.Client;
 using Microsoft.TeamFoundation.Framework.Client;
 
-namespace Coldwater.Construct.Tfs.Activities
+namespace Construct.Tfs.Activities
 {
     /// <summary>
     /// A <see cref="CodeActivity"/> to execute a StatLight test run 

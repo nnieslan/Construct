@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Build.Framework;
 
-namespace Coldwater.Construct.Build.Activities.Test.MockObjects
+namespace Construct.Build.Activities.Test.MockObjects
 {
     public class MockBuildEngine : IBuildEngine
     {

@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Coldwater.Construct.Build.Tasks;
-using Coldwater.Construct.Build.Tasks.Test.MockObjects;
+using Construct.Build.Tasks;
+using Construct.Build.Tasks.Test.MockObjects;
 
-namespace Coldwater.Construct.Build.Tasks.Test
+namespace Construct.Build.Tasks.Test
 {
     [TestClass]
     public class PowerShellTaskTest

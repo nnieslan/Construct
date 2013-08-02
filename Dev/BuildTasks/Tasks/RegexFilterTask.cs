@@ -1,5 +1,5 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-namespace Coldwater.Construct.Build.Tasks
+namespace Construct.Build.Tasks
 {
     /// <summary>
     /// A <see cref="Task"/> implementation that filters incoming lists by a regex.

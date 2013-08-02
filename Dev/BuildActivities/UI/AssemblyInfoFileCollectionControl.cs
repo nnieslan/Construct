@@ -1,11 +1,11 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System.Windows.Forms;
 using System.Linq;
 
-namespace Coldwater.Construct.Tfs.Activities.UI
+namespace Construct.Tfs.Activities.UI
 {
     /// <summary>
     /// A Multi-line <see cref="TextBox"/> control that displays a list of AssemblyInfo files (relative path to current branch).

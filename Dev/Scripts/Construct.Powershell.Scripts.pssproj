@@ -5,9 +5,9 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{882fe663-057c-450c-bd2b-784affb20475}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MyApplication</RootNamespace>
-    <AssemblyName>MyApplication</AssemblyName>
-    <Name>Coldwater.Construct.Powershell.Scripts</Name>
+    <RootNamespace>Construct.PowerShell.Scripts</RootNamespace>
+    <AssemblyName>Construct.PowerShell.Scripts</AssemblyName>
+    <Name>Construct.Powershell.Scripts</Name>
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
@@ -70,9 +70,6 @@
     <Content Include="build\vm-functions.ps1">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Coldwater.Construct.Powershell.Scripts.pssproj.vspscc">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="Common\common-functions.ps1">
       <SubType>Content</SubType>
     </Content>
@@ -131,10 +128,10 @@
   <ItemGroup>
     <Content Include="SharePoint\Inputs-AddOns.example.xml" />
     <Content Include="SharePoint\Inputs-WSPs.example.xml" />
-    <Content Include="Build\CWS.Build.tasks" />
-    <Content Include="Build\CWS.Build.Traversal.Global.setting" />
-    <Content Include="Build\CWS.Build.Packaging.targets" />
-    <Content Include="Build\CWS.Build.Traversal.targets" />
+    <Content Include="Build\Construct.Build.tasks" />
+    <Content Include="Build\Construct.Build.Traversal.Global.setting" />
+    <Content Include="Build\Construct.Build.Packaging.targets" />
+    <Content Include="Build\Construct.Build.Traversal.targets" />
     <Content Include="Build\aliases" />
     <Content Include="Enlist\enlistme.cmd" />
     <Content Include="Enlist\git-enlistme.cmd" />

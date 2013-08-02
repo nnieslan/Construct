@@ -1,2 +1,2 @@
-MSBUILD : warning : CA0064 : No analysis was performed because the specified rule set could not be loaded or did not contain any managed code analysis rules. [D:\src\construct-2012\Dev\BuildActivities\Coldwater.Construct.Tfs.Activities.csproj]
-MSBUILD : warning : CA0063 : * Failed to load rule set file 'MinimumRecommendedRules.ruleset' or one of its dependent rule set files.  [D:\src\construct-2012\Dev\BuildActivities\Coldwater.Construct.Tfs.Activities.csproj]
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets(1578,5): warning MSB3247: Found conflicts between different versions of the same dependent assembly. [C:\src\Construct\Dev\BuildActivities\Construct.Tfs.Activities.csproj]
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets(1578,5): warning MSB3247: Found conflicts between different versions of the same dependent assembly. [C:\src\Construct\Dev\BuildTemplates\Construct.Build.Template.csproj]

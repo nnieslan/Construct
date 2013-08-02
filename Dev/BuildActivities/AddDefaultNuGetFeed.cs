@@ -1,5 +1,5 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
@@ -11,7 +11,7 @@ using Microsoft.TeamFoundation.Build.Client;
 using Microsoft.TeamFoundation.Build.Workflow.Activities;
 using NuGet;
 
-namespace Coldwater.Construct.Tfs.Activities
+namespace Construct.Tfs.Activities
 {
     /// <summary>
     /// Sets the default NuGet feed for the build process.

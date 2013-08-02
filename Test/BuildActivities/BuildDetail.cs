@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.TeamFoundation.Build.Client;
 
-namespace Coldwater.Construct.Build.Activities.Test
+namespace Construct.Build.Activities.Test
 {
       
     public class MockBuildDetail : IBuildDetail

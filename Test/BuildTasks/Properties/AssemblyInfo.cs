@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Coldwater.Construct.Build.Tasks.Test")]
+[assembly: AssemblyTitle("Construct.Build.Tasks.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Coldwater.Construct.Build.Tasks.Test")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
+[assembly: AssemblyCompany("NT Prime LLC")]
+[assembly: AssemblyProduct("Construct.Build.Tasks.Test")]
+[assembly: AssemblyCopyright("Copyright © NT Prime 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

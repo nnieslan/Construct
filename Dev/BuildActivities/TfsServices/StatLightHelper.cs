@@ -1,5 +1,5 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
@@ -10,7 +10,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.TeamFoundation.TestManagement.Client;
 
-namespace Coldwater.Construct.Build.TfsServices
+namespace Construct.Build.TfsServices
 {
     /// <summary>
     /// Helper object used for parsing and translating statlight result files.

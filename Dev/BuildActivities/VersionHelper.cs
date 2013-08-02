@@ -1,5 +1,5 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Coldwater.Construct.Tfs.Activities
+namespace Construct.Tfs.Activities
 {
     /// <summary>
     /// Helper class used for Version number incrementing and related values.

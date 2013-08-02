@@ -1,5 +1,5 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
@@ -12,7 +12,7 @@ using Microsoft.TeamFoundation.Build.Client;
 using Microsoft.TeamFoundation.Build.Workflow.Activities;
 using Microsoft.TeamFoundation.VersionControl.Client;
 
-namespace Coldwater.Construct.Tfs.Activities
+namespace Construct.Tfs.Activities
 {
     /// <summary>
     /// A Workflow activity for committing the incrementing of a branch-based build number stored in a version file.

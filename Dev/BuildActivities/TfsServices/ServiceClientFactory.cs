@@ -1,12 +1,12 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 
-namespace Coldwater.Construct.Build.TfsServices
+namespace Construct.Build.TfsServices
 {
     public static class ServiceClientFactory
     {

@@ -1,5 +1,5 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Build.Framework;
 
-namespace Coldwater.Construct.Build.Tasks
+namespace Construct.Build.Tasks
 {
     /// <summary>
     /// An implementation of <see cref="ITaskFactory"/> that creates <see cref="PowerShellTask"/>s.

@@ -1,5 +1,5 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
@@ -18,7 +18,7 @@ using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.Build.Client;
 using Microsoft.TeamFoundation.Build.Workflow.Activities;
 
-namespace Coldwater.Construct.Tfs.Activities
+namespace Construct.Tfs.Activities
 {
     /// <summary>
     /// Executes the PowerShell script indicated on the remote machine denoted.

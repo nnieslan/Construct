@@ -1,12 +1,12 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace Coldwater.Construct.Tfs.Activities.UI
+namespace Construct.Tfs.Activities.UI
 {
     /// <summary>
     /// A Modal Dialog for editing <see cref="AssemblyInfoFileCollection"/>s.

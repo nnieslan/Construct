@@ -1,10 +1,10 @@
 ﻿<Activity mc:Ignorable="sap" 
-          x:Class="Coldwater.Construct.Lab.Process" 
+          x:Class="Construct.Lab.Process" 
           this:Process.LabWorkflowParameters="[New Microsoft.TeamFoundation.Lab.Workflow.Activities.LabWorkflowDetails()]" 
           this:Process.Verbosity="[Microsoft.TeamFoundation.Build.Workflow.BuildVerbosity.Detailed]" 
           this:Process.LabEnvironmentDisposition="[Microsoft.TeamFoundation.Lab.Client.LabEnvironmentDisposition.Stored]" 
           xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" 
-          xmlns:cbta="clr-namespace:Coldwater.Construct.Tfs.Activities;assembly=Coldwater.Construct.Tfs.Activities" 
+          xmlns:cbta="clr-namespace:Construct.Tfs.Activities;assembly=Construct.Tfs.Activities" 
           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
           xmlns:mtbc="clr-namespace:Microsoft.TeamFoundation.Build.Client;assembly=Microsoft.TeamFoundation.Build.Client" 
           xmlns:mtbc1="clr-namespace:Microsoft.TeamFoundation.Build.Common;assembly=Microsoft.TeamFoundation.Build.Common" 
@@ -23,7 +23,7 @@
           xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" 
           xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" 
           xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" 
-          xmlns:this="clr-namespace:Coldwater.Construct.Lab" 
+          xmlns:this="clr-namespace:Construct.Lab" 
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="Metadata" Type="mtbw:ProcessParameterMetadataCollection" />

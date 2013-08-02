@@ -8,7 +8,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.TeamFoundation.Build.Client;
 
-namespace Coldwater.Construct.Build.Activities.Test
+namespace Construct.Build.Activities.Test
 {
     [TestClass]
     public class GetAssemblyVersionTest
@@ -31,7 +31,7 @@ namespace Coldwater.Construct.Build.Activities.Test
             workflowInvoker.Extensions.Add(detail);
 
             // Set the in arguments for the workflow as specified
-            workflow.VersionFile = @"Test/Coldwater.Construct.Build.Activities.Test/Resources/AssemblyInfo.cs";
+            workflow.VersionFile = @"Test/Construct.Build.Activities.Test/Resources/AssemblyInfo.cs";
             workflow.OctetToIncrement = 4;
 
             // Invoke the workflow and capture the outputs

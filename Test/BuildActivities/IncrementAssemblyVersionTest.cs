@@ -8,9 +8,9 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.TeamFoundation.Build.Client;
 using Microsoft.TeamFoundation.VersionControl.Client;
-using Resources = Coldwater.Construct.Build.Activities.Test.ResourceFiles;
+using Resources = Construct.Build.Activities.Test.ResourceFiles;
 
-namespace Coldwater.Construct.Build.Activities.Test
+namespace Construct.Build.Activities.Test
 {
     /// <summary>
     /// Summary description for UnitTest1

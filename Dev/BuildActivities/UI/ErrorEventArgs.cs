@@ -1,5 +1,5 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Coldwater.Construct.Tfs.Activities.UI
+namespace Construct.Tfs.Activities.UI
 {
     public class ErrorEventArgs<T> 
         : EventArgs 

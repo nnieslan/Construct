@@ -1,5 +1,5 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
@@ -8,13 +8,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing.Design;
 
-namespace Coldwater.Construct.Tfs.Activities
+namespace Construct.Tfs.Activities
 {
 
     /// <summary>
     /// A strongly-typed list of strings to hold AssemblyInfo version files.
     /// </summary>
-    [Editor("Coldwater.Construct.Tfs.Activities.UI.AssemblyInfoFileCollectionEditor, Coldwater.Construct.Tfs.Activities",
+    [Editor("Construct.Tfs.Activities.UI.AssemblyInfoFileCollectionEditor, Construct.Tfs.Activities",
             typeof(UITypeEditor)),
             TypeConverter(typeof(AssemblyInfoFileCollectionConverter))]
     [Serializable]

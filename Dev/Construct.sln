@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldwater.Construct.Build.Tasks", "BuildTasks\Coldwater.Construct.Build.Tasks.csproj", "{F470E4D4-7719-4A8D-BD7C-CCB48CB62992}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Build.Tasks", "BuildTasks\Construct.Build.Tasks.csproj", "{F470E4D4-7719-4A8D-BD7C-CCB48CB62992}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldwater.Construct.Build.Template", "BuildTemplates\Coldwater.Construct.Build.Template.csproj", "{1124B036-FE38-47CD-9816-48D0FAA86C12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Build.Template", "BuildTemplates\Construct.Build.Template.csproj", "{1124B036-FE38-47CD-9816-48D0FAA86C12}"
 EndProject
-Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "Coldwater.Construct.Powershell.Scripts", "Scripts\Coldwater.Construct.Powershell.Scripts.pssproj", "{882FE663-057C-450C-BD2B-784AFFB20475}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldwater.Construct.Build.Tasks.Test", "..\Test\BuildTasks\Coldwater.Construct.Build.Tasks.Test.csproj", "{073E32C8-BB09-4033-90B2-7EE0057AB104}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Build.Tasks.Test", "..\Test\BuildTasks\Construct.Build.Tasks.Test.csproj", "{073E32C8-BB09-4033-90B2-7EE0057AB104}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{265F29A9-F55C-46B7-8898-9E22A0F69643}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,41 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldwater.Construct.Silverl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{167C1FF7-29CC-41EE-93FA-05688669C70C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldwater.Construct.Tfs.Activities", "BuildActivities\Coldwater.Construct.Tfs.Activities.csproj", "{88766589-95D5-4DE0-BE01-07FD2B62AA68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Tfs.Activities", "BuildActivities\Construct.Tfs.Activities.csproj", "{88766589-95D5-4DE0-BE01-07FD2B62AA68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldwater.Construct.Build.Activities.Test", "..\Test\BuildActivities\Coldwater.Construct.Build.Activities.Test.csproj", "{B9AE1EEB-1BF8-4ECA-9B9B-7DA802A77290}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Build.Activities.Test", "..\Test\BuildActivities\Construct.Build.Activities.Test.csproj", "{B9AE1EEB-1BF8-4ECA-9B9B-7DA802A77290}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.coldwatersoftware.com/tfs/coldwater
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = BuildTasks\\Coldwater.Construct.Build.Tasks.csproj
-		SccProjectName1 = BuildTasks
-		SccLocalPath1 = BuildTasks
-		SccProjectUniqueName2 = BuildTemplates\\Coldwater.Construct.Build.Template.csproj
-		SccProjectName2 = BuildTemplates
-		SccLocalPath2 = BuildTemplates
-		SccProjectUniqueName3 = Scripts\\Coldwater.Construct.Powershell.Scripts.pssproj
-		SccProjectName3 = Scripts
-		SccLocalPath3 = Scripts
-		SccProjectUniqueName4 = ..\\Test\\BuildTasks\\Coldwater.Construct.Build.Tasks.Test.csproj
-		SccProjectTopLevelParentUniqueName4 = Construct.sln
-		SccProjectName4 = ../Test/BuildTasks
-		SccLocalPath4 = ..\\Test\\BuildTasks
-		SccProjectUniqueName5 = ..\\Test\\Coldwater.Construct.Silverlight.Sample.Unit.Test\\Coldwater.Construct.Silverlight.Sample.Unit.Test.csproj
-		SccProjectTopLevelParentUniqueName5 = Construct.sln
-		SccProjectName5 = ../Test/Coldwater.Construct.Silverlight.Sample.Unit.Test
-		SccLocalPath5 = ..\\Test\\Coldwater.Construct.Silverlight.Sample.Unit.Test
-		SccProjectUniqueName6 = BuildActivities\\Coldwater.Construct.Tfs.Activities.csproj
-		SccProjectName6 = BuildActivities
-		SccLocalPath6 = BuildActivities
-		SccProjectUniqueName7 = ..\\Test\\BuildActivities\\Coldwater.Construct.Build.Activities.Test.csproj
-		SccProjectTopLevelParentUniqueName7 = Construct.sln
-		SccProjectName7 = ../Test/BuildActivities
-		SccLocalPath7 = ..\\Test\\BuildActivities
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = construct.vsmdi
 	EndGlobalSection
@@ -70,10 +38,6 @@ Global
 		{1124B036-FE38-47CD-9816-48D0FAA86C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1124B036-FE38-47CD-9816-48D0FAA86C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1124B036-FE38-47CD-9816-48D0FAA86C12}.Release|Any CPU.Build.0 = Release|Any CPU
-		{882FE663-057C-450C-BD2B-784AFFB20475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{882FE663-057C-450C-BD2B-784AFFB20475}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{882FE663-057C-450C-BD2B-784AFFB20475}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{882FE663-057C-450C-BD2B-784AFFB20475}.Release|Any CPU.Build.0 = Release|Any CPU
 		{073E32C8-BB09-4033-90B2-7EE0057AB104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{073E32C8-BB09-4033-90B2-7EE0057AB104}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{073E32C8-BB09-4033-90B2-7EE0057AB104}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -95,8 +59,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{AF1B08B8-4ABD-44AC-B014-8A8BE7659264} = {167C1FF7-29CC-41EE-93FA-05688669C70C}
 		{073E32C8-BB09-4033-90B2-7EE0057AB104} = {167C1FF7-29CC-41EE-93FA-05688669C70C}
 		{B9AE1EEB-1BF8-4ECA-9B9B-7DA802A77290} = {167C1FF7-29CC-41EE-93FA-05688669C70C}
-		{AF1B08B8-4ABD-44AC-B014-8A8BE7659264} = {167C1FF7-29CC-41EE-93FA-05688669C70C}
 	EndGlobalSection
 EndGlobal

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Coldwater Construct TFS Build Tasks")]    
+[assembly: AssemblyTitle("Construct MSBuild Tasks")]    
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")] 
-[assembly: AssemblyCompany("Coldwater Software")]
-[assembly: AssemblyProduct("Coldwater Construct")]
-[assembly: AssemblyCopyright("Copyright © Coldwater Software 2011")]
+[assembly: AssemblyCompany("NT Prime LLC")]
+[assembly: AssemblyProduct("Construct")]
+[assembly: AssemblyCopyright("Copyright © NT Prime 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -25,7 +25,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion("1.0.46.0")]
 [assembly: AssemblyFileVersion("1.0.46.0")]
-[assembly: InternalsVisibleTo("Coldwater.Construct.Build.Tasks.Test, PublicKey="
+[assembly: InternalsVisibleTo("Construct.Build.Tasks.Test, PublicKey="
     + "0024000004800000940000000602000000240000525341310004000001000100fda8093a8c1591"
     + "cb62deb4be37c720efa85f66315c10078acdbfb27abbf980ae79abd055bd193a43cb878ff874e9"
     + "ca1d06c2946b5961c3daa977c0c3591409eb707406d3bd79071a11050ce18955c7dbb248ff4b9a"

@@ -1,5 +1,5 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
@@ -10,7 +10,7 @@ using System.Management.Automation.Runspaces;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-namespace Coldwater.Construct.Build.Tasks
+namespace Construct.Build.Tasks
 {
     public sealed class PowerShellTask : Task, IGeneratedTask, ITask, IDisposable
     {

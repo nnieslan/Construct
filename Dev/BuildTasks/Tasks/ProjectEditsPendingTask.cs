@@ -1,5 +1,5 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
@@ -15,7 +15,7 @@ using Microsoft.Build.Utilities;
 using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.VersionControl.Client;
 
-namespace Coldwater.Construct.Build.Tasks
+namespace Construct.Build.Tasks
 {
     public class ProjectEditsPendingTask : Task
     {

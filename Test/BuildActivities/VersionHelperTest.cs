@@ -1,9 +1,9 @@
-﻿using Coldwater.Construct.Build.Activities;
+﻿using Construct.Build.Activities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Coldwater.Construct.Tfs.Activities;
+using Construct.Tfs.Activities;
 
-namespace Coldwater.Construct.Build.Activities.Test
+namespace Construct.Build.Activities.Test
 {
     
     

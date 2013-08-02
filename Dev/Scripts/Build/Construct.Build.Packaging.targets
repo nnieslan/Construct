@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 ==============================================================================
- Copyright (c) Coldwater Software. All Rights Reserved.
+ Copyright (c) NT Prime LLC. All Rights Reserved.
 ==============================================================================
 -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
@@ -13,9 +13,9 @@
     <ConstructTasksFolder Condition="'$(ConstructTasksFolder)'=='' And '$(ConstructFolder)'!=''">$(ConstructFolder)</ConstructTasksFolder>
     <ConstructTasksFolder Condition="'$(ConstructTasksFolder)'=='' And '$(ENLISTROOT)'!='' And Exists('$(ENLISTROOT)\build\')">$(ENLISTROOT)\build\</ConstructTasksFolder>
     <ConstructTasksFolder Condition="'$(ConstructTasksFolder)'=='' And '$(WORKSPACE)'!='' And Exists('$(WORKSPACE)\build\')">$(WORKSPACE)\build\</ConstructTasksFolder>
-    <ConstructTaskAssemblyFile>$(ConstructTasksFolder)Coldwater.Construct.Build.Tasks.dll</ConstructTaskAssemblyFile>
+    <ConstructTaskAssemblyFile>$(ConstructTasksFolder)Construct.Build.Tasks.dll</ConstructTaskAssemblyFile>
   </PropertyGroup>
-  <Import Project="$(ConstructTasksFolder)CWS.Build.tasks"/>
+  <Import Project="$(ConstructTasksFolder)Construct.Build.tasks"/>
 
   <!-- Defines the standard Build target ordering. -->
   <PropertyGroup>

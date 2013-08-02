@@ -8,10 +8,10 @@
 
   <!-- Define all ProjectFiles here -->
   <ItemGroup>
-    <ProjectFiles Include="BuildTasks\Coldwater.Construct.Build.Tasks.Test.csproj">
+    <ProjectFiles Include="BuildTasks\Construct.Build.Tasks.Test.csproj">
 	<OutputPath>Tests</OutputPath>
     </ProjectFiles>
-    <ProjectFiles Include="BuildActivities\Coldwater.Construct.Build.Activities.Test.csproj">
+    <ProjectFiles Include="BuildActivities\Construct.Build.Activities.Test.csproj">
 	<OutputPath>Tests</OutputPath>
     </ProjectFiles>
   </ItemGroup>

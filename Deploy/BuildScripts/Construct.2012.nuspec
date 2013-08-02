@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Construct.2012</id>
+    <version>1.0.0.0</version>
+    <authors>NT Prime LLC</authors>
+    <owners>NT Prime LLC</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Visual Studio 2012-compatible Construct distribution.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>NT Prime LLC 2013</copyright>
+    <tags>ALM Build Construct MSBuild</tags>
+  </metadata>
+</package>

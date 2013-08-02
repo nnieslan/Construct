@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.TeamFoundation.Build.Client;
 using Microsoft.TeamFoundation.Lab.Workflow.Activities;
 
-namespace Coldwater.Construct.Build.Activities.Test
+namespace Construct.Build.Activities.Test
 {
     [TestClass]
     public class StatLightRunTestsTest

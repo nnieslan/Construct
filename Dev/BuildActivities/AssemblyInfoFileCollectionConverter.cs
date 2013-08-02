@@ -1,12 +1,12 @@
 ﻿//==============================================================================
-// Copyright (c) Coldwater Software. All Rights Reserved.
+// Copyright (c) NT Prime LLC. All Rights Reserved.
 //==============================================================================
 
 using System;
 using System.ComponentModel;
 using System.Text;
 
-namespace Coldwater.Construct.Tfs.Activities
+namespace Construct.Tfs.Activities
 {
     /// <summary>
     /// A <see cref="TypeConverter"/> to convert the list of AssemblyInfoFiles into a semi-colon delimited string.

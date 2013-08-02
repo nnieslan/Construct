@@ -8,12 +8,12 @@
 
   <!-- Define all ProjectFiles here -->
   <ItemGroup>
-    <ProjectFiles Include="BuildActivities\Coldwater.Construct.Tfs.Activities.csproj">
+    <ProjectFiles Include="BuildActivities\Construct.Tfs.Activities.csproj">
       <DeployDir>TFS</DeployDir>
     </ProjectFiles>
-    <ProjectFiles Include="BuildTasks\Coldwater.Construct.Build.Tasks.csproj"/>
-    <ProjectFiles Include="BuildTemplates\Coldwater.Construct.Build.Template.csproj"/>
-    <ProjectFiles Include="Scripts\Coldwater.Construct.Powershell.Scripts.pssproj"/>
+    <ProjectFiles Include="BuildTasks\Construct.Build.Tasks.csproj"/>
+    <ProjectFiles Include="BuildTemplates\Construct.Build.Template.csproj"/>
+    <ProjectFiles Include="Scripts\Construct.Powershell.Scripts.pssproj"/>
     <ProjectFiles Include="NugetServer\NugetServer.csproj"/>
   </ItemGroup>
 

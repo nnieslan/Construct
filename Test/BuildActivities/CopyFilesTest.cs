@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.TeamFoundation.Build.Client;
-using Coldwater.Construct.Tfs.Activities;
-using Resources = Coldwater.Construct.Build.Activities.Test.ResourceFiles;
+using Construct.Tfs.Activities;
+using Resources = Construct.Build.Activities.Test.ResourceFiles;
 
-namespace Coldwater.Construct.Build.Activities.Test
+namespace Construct.Build.Activities.Test
 {
     [TestClass]
     public class CopyFilesTest

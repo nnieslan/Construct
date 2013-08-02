@@ -13,11 +13,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-        <BinariesToZip Include="$(OutDir)Coldwater.Construct.Build.Tasks.*"/>
+        <BinariesToZip Include="$(OutDir)Construct.Build.Tasks.*"/>
         <BinariesToZip Include="Nuget.exe"/>
         <BinariesToZip Include="ICSharpCode.SharpZipLib.dll"/>
         <BinariesToZip Include="tfsserverurl.txt"/>
-        <NuSpecFiles Include="Coldwater.Construct.2012.nuspec"/>
+        <NuSpecFiles Include="Construct.2012.nuspec"/>
         <NugetTools Include="Tools\chocolateyInstall.ps1"/>
         <NugetContent Include="$(OutputZipFile)"/>
   </ItemGroup>

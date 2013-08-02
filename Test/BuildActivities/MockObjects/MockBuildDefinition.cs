@@ -3,7 +3,7 @@ using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.Build.Client;
 using Microsoft.TeamFoundation.VersionControl.Client;
 
-namespace Coldwater.Construct.Build.Activities.Test
+namespace Construct.Build.Activities.Test
 {
     public class MockBuildDefinition : IBuildDefinition
     {
@@ -330,6 +330,12 @@ namespace Coldwater.Construct.Build.Activities.Test
             {
                 throw new NotImplementedException();
             }
+        }
+
+
+        public System.Collections.Generic.List<IBuildDefinitionSourceProvider> SourceProviders
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 ==============================================================================
- Copyright (c) Coldwater Software. All Rights Reserved.
+ Copyright (c) NT Prime LLC. All Rights Reserved.
 ==============================================================================
 -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
@@ -12,7 +12,7 @@
     <!-- Building the path to the Construct MSBuild tasks based on the currently available environment variables. -->
     <ConstructTasksFolder Condition="'$(ConstructTasksFolder)'=='' And '$(ENLISTROOT)'!=''">$(ENLISTROOT)\build\</ConstructTasksFolder>
     <ConstructTasksFolder Condition="'$(ConstructTasksFolder)'=='' And '$(WORKSPACE)'!=''">$(WORKSPACE)\build\</ConstructTasksFolder>
-    <ConstructTaskAssemblyFile>$(ConstructTasksFolder)Coldwater.Construct.Build.Tasks.dll</ConstructTaskAssemblyFile>
+    <ConstructTaskAssemblyFile>$(ConstructTasksFolder)Construct.Build.Tasks.dll</ConstructTaskAssemblyFile>
 
   </PropertyGroup>
 
@@ -21,9 +21,9 @@
              TaskName="NDependTask" />
 
   <!-- The RegexFilterTask - Filters -->
-  <UsingTask AssemblyFile="$(ConstructTaskAssemblyFile)" TaskName="Coldwater.Construct.Build.Tasks.RegexFilterTask"/>
-  <UsingTask AssemblyFile="$(ConstructTaskAssemblyFile)" TaskName="Coldwater.Construct.Build.Tasks.ProjectEditsPendingTask"/>
-  <UsingTask AssemblyFile="$(ConstructTaskAssemblyFile)" TaskName="Coldwater.Construct.Build.Tasks.CopyProjectOutputsTask"/>
+  <UsingTask AssemblyFile="$(ConstructTaskAssemblyFile)" TaskName="Construct.Build.Tasks.RegexFilterTask"/>
+  <UsingTask AssemblyFile="$(ConstructTaskAssemblyFile)" TaskName="Construct.Build.Tasks.ProjectEditsPendingTask"/>
+  <UsingTask AssemblyFile="$(ConstructTaskAssemblyFile)" TaskName="Construct.Build.Tasks.CopyProjectOutputsTask"/>
 
   <UsingTask TaskFactory="PowershellTaskFactory" TaskName="ZipFiles" AssemblyFile="$(ConstructTaskAssemblyFile)">
     <ParameterGroup>
