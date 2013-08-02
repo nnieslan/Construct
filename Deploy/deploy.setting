@@ -1,0 +1,11 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+
+    <Import Project="..\construct.setting"/>
+
+  <PropertyGroup>
+	<DeploymentProject>true</DeploymentProject>
+  </PropertyGroup>
+  
+  </Project>

@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+==============================================================================
+ Copyright (c) Coldwater Software. All Rights Reserved.
+==============================================================================
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         DefaultTargets="Build"
+         ToolsVersion="4.0">
+
+  <PropertyGroup>
+    <!-- Building the path to the Construct MSBuild tasks based on the currently available environment variables. -->
+    <ConstructTasksFolder Condition="'$(ConstructTasksFolder)'=='' And '$(ENLISTROOT)'!=''">$(ENLISTROOT)\build\</ConstructTasksFolder>
+    <ConstructTasksFolder Condition="'$(ConstructTasksFolder)'=='' And '$(WORKSPACE)'!=''">$(WORKSPACE)\build\</ConstructTasksFolder>
+    <ConstructTaskAssemblyFile>$(ConstructTasksFolder)Coldwater.Construct.Build.Tasks.dll</ConstructTaskAssemblyFile>
+
+  </PropertyGroup>
+
+  <UsingTask Condition="'$(NDependFolder)'!='' And Exists($(NDependFolder))"
+             AssemblyFile="$(NDependFolder)\MSBuild\NDepend.Build.MSBuild.dll"
+             TaskName="NDependTask" />
+
+  <!-- The RegexFilterTask - Filters -->
+  <UsingTask AssemblyFile="$(ConstructTaskAssemblyFile)" TaskName="Coldwater.Construct.Build.Tasks.RegexFilterTask"/>
+  <UsingTask AssemblyFile="$(ConstructTaskAssemblyFile)" TaskName="Coldwater.Construct.Build.Tasks.ProjectEditsPendingTask"/>
+  <UsingTask AssemblyFile="$(ConstructTaskAssemblyFile)" TaskName="Coldwater.Construct.Build.Tasks.CopyProjectOutputsTask"/>
+
+  <UsingTask TaskFactory="PowershellTaskFactory" TaskName="ZipFiles" AssemblyFile="$(ConstructTaskAssemblyFile)">
+    <ParameterGroup>
+      <ConstructDir Required="true" ParameterType="System.String" />
+      <InputDir Required="true" ParameterType="System.String" />
+      <OutputFileName Required="true" ParameterType="System.String" />
+      <OutputFile Output="true" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+        $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", `
+                          "Construct PowerShell : Now adding files in the folder '{0}' to '{1}'.", $inputdir, $outputfilename)
+                     
+        $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"Normal", `
+                          "Construct PowerShell : ConstructDir -> '{0}'", $ConstructDir)
+       
+        $zipLibrary = "$ConstructDir\ICSharpCode.SharpZipLib.dll"
+        [void] [System.Reflection.Assembly]::LoadFile($zipLibrary)
+        
+        $zip = new-object "ICSharpCode.SharpZipLib.Zip.FastZip"
+        $zip.CreateZip($outputfilename, $inputdir, "true", ".*")
+        $outputfile = (dir $outputfilename).FullName
+      ]]>
+    </Task>
+  </UsingTask>
+
+  <!-- LEAVING THESE HERE FOR DEMONSTRATION PURPOSES AND FUTURE REFERENCE.  NOTE: remove hardcoded path to AssemblyFile
+  <UsingTask TaskName="Fortify.TranslateTask" AssemblyFile="C:\Program Files\Fortify Software\HP Fortify v3.50\core\lib\FortifyMSBuildTasks.dll" />
+  <UsingTask TaskName="Fortify.ScanTask" AssemblyFile="C:\Program Files\Fortify Software\HP Fortify v3.50\core\lib\FortifyMSBuildTasks.dll" />-->
+
+  <UsingTask TaskFactory="PowershellTaskFactory" TaskName="FortifyScanAssembly" AssemblyFile="$(ConstructTaskAssemblyFile)">
+    <ParameterGroup>
+      <ConstructDir Required="true" ParameterType="System.String" />
+      <AssemblyFile Required="true" ParameterType="System.String" />
+      <OutDir Required="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+      
+        $AssemblyFile.Split(';') | % {
+          $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", `
+                          "Construct PowerShell : Scanning assembly '{0}' with Fortify...", $_)
+        
+          $currentFile = split-path $_ -Leaf
+          run-fortify -assembly $currentFile -bindir $OutDir -libdirs $LibDir
+        }
+      ]]>
+    </Task>
+  </UsingTask>
+
+  <UsingTask TaskFactory="PowershellTaskFactory" TaskName="FortifyScanBuildTask" AssemblyFile="$(ConstructTaskAssemblyFile)">
+    <ParameterGroup>
+      <ConstructDir Required="true" ParameterType="System.String" />
+      <OutDir Required="true" ParameterType="System.String" />
+      <LibDir Required="true" ParameterType="System.String" />
+      <SessionName Required="true" ParameterType="System.String" />
+      <ExclusionMask Required="false" ParameterType="System.String" />
+      <VmSize Required="false" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+        
+          $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", `
+                          "Construct PowerShell: Scanning build output with HP Fortify...")
+         
+          run-fortify-for-build -bindir $OutDir -libdirs $LibDir -sessionName $SessionName -exclusionList $ExclusionMask -vmSize $VmSize
+      ]]>
+    </Task>
+  </UsingTask>
+
+  <UsingTask TaskFactory="PowershellTaskFactory" TaskName="RestoreNuGetPackages" AssemblyFile="$(ConstructTaskAssemblyFile)">
+    <ParameterGroup>
+      <ConstructDir Required="true" ParameterType="System.String" />
+      <Project Required="true" ParameterType="System.String" />
+      <NuGetExe Required="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+        
+        $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"Normal", `
+                          "Construct PowerShell : Restoring the NuGet packages for '{0}'", $Project)
+        
+        $projectPath = split-path -Path "$Project"
+        
+        $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"Normal", `
+                          "Construct PowerShell : Resolved the path to '{0}'", $projectPath)
+        
+        $pkg = join-path -Path "$projectPath" -ChildPath 'packages.config'                  
+        $packagesPath = join-path -Path (split-path "$projectPath") -ChildPath 'packages'
+        
+        if(test-path "$pkg") {
+          $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"Normal", `
+                          "Construct PowerShell : Found '{0}', downloading packages to '{1}'", $pkg, $packagesPath)
+          
+          $cmd = """$NuGetExe"" install ""$pkg"" -o ""$packagesPath"""
+          
+          $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"Normal", `
+                          "Construct PowerShell : NuGet command : '{0}'", $cmd)
+          Invoke-Command -ScriptBlock {param([string]$n,[string]$pkg,[string]$p) Set-Item env:\EnableNugetPackageRestore -Value $true; & "$n" install "$pkg" -o "$p" } -ArgumentList $NuGetExe,$pkg,$packagesPath -OutVariable +out
+          $out | foreach { $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", `
+                          "Construct PowerShell : '{0}'", $_) }
+        }
+  ]]>
+    </Task>
+  </UsingTask>
+
+  <UsingTask TaskFactory="PowershellTaskFactory" TaskName="BuildNuGetPackage" AssemblyFile="$(ConstructTaskAssemblyFile)">
+    <ParameterGroup>
+      <ConstructDir Required="true" ParameterType="System.String" />
+      <NuSpec Required="true" ParameterType="System.String" />
+      <BasePath Required="true" ParameterType="System.String" />
+      <NuGetPackageOutDir Required="true" ParameterType="System.String" />
+      <NuGetExe Required="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+        
+        $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", `
+                          "Construct PowerShell : Building the NuGet package '{0}'", $NuSpec)
+        
+        $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", `
+                          "Construct PowerShell : NuGet packaging BasePath is '{0}'.", $BasePath)
+        
+        Set-Item env:\NUGET_EXE_NO_PROMPT -Value 1
+        
+        [void][System.Reflection.Assembly]::LoadFile("$NuGetExe")
+        $command = New-Object Nuget.Commands.PackCommand
+        $command.Arguments.Add("$NuSpec")
+        $command.BasePath = $BasePath
+        $command.OutputDirectory = $NuGetPackageOutDir
+        $command.Manager = New-Object Nuget.CommandManager
+        $command.Console = New-Object Nuget.Common.Console
+        $command.Console.IsNonInteractive = $true
+        $command.Rules = [NuGet.DefaultPackageRuleSet]::Rules        
+        $command.Execute()
+       
+        $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"Normal", `
+                        "Construct PowerShell : NuGet Packaging Completed...")
+ 
+     ]]>
+    </Task>
+  </UsingTask>
+
+  <UsingTask TaskFactory="PowershellTaskFactory" TaskName="DetermineEditsPending" AssemblyFile="$(ConstructTaskAssemblyFile)">
+    <ParameterGroup>
+      <Project Required="true" />
+      <EditsPending Output="true" />
+      <IsCsProject Output="true"/>
+    </ParameterGroup>
+    <Task>
+      <![CDATA[
+      $msbuildLog.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", `
+                          "Construct PowerShell : Evaluating necessity of Code Analysis for '{0}'", $Project)
+        
+        $EditsPending = $false
+        $IsCsProject = $false
+        if((test-path $Project) -And $Project.EndsWith('csproj')) {
+          $IsCsProject = $true
+          $directory = split-path $Project
+          
+          $cmd = "tf status $directory\*.* /recursive"
+          $status = Invoke-Expression $cmd
+          if($status -ne 'There are no pending changes.') {
+            $EditsPending = $true
+          }
+        }
+      ]]>
+    </Task>
+  </UsingTask>
+
+  <UsingTask TaskName="TokenReplace"
+           TaskFactory="CodeTaskFactory"
+           AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <InputFile  ParameterType="System.String" Required="true" />
+      <OutputFile ParameterType="System.String" Required="true" />
+      <Token ParameterType="System.String" Required="true" />
+      <Replacement ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+        string content = File.ReadAllText(InputFile);
+        content = content.Replace(Token, Replacement);
+        File.WriteAllText(OutputFile, content);
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <UsingTask TaskName="DetermineIntermediateFolder"
+             TaskFactory="CodeTaskFactory"
+             AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <BaseIntermediateOutputPath ParameterType="System.String" Required="true" />
+      <Projects ParameterType="Microsoft.Build.Framework.ITaskItem[]"  Required="true" />
+      <UpdatedProjects ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true"/>
+    </ParameterGroup>
+    <Task>
+      <Code Type="Class" Language="cs">
+        <![CDATA[
+            using System;
+            using System.Collections.Generic;
+            using System.IO;
+            using Microsoft.Build.Framework;
+            using Microsoft.Build.Utilities;
+
+            public class DetermineIntermediateFolder : Task
+            {  
+                private List<ITaskItem> outputList;
+                private List<ITaskItem> inputList;
+                        
+                /// <summary>
+                /// Gets or sets the base path for all obj folders.
+                /// </summary>
+                [Required]
+                public string BaseIntermediateOutputPath { get; set; }
+                
+                /// <summary>
+                /// Gets or sets the incoming list of project files to generate obj folders for.
+                /// </summary>
+                [Required]
+                public ITaskItem[] Projects
+                {
+                    get
+                    {
+                        return this.inputList.ToArray();
+                    }
+                    set
+                    {
+                        this.inputList = new List<ITaskItem>(value);
+                    }
+                }
+                
+                /// <summary>
+                /// Gets or sets the list of updated projects.
+                /// </summary>
+                [Output]
+                public ITaskItem[] UpdatedProjects
+                {
+                    get
+                    {
+                        if (this.outputList != null)
+                        {
+                            return this.outputList.ToArray();
+                        }
+                        return null;
+                    }
+                    set
+                    {
+                        this.outputList = new List<ITaskItem>(value);
+                    }
+                }
+
+                public override bool Execute()
+                {
+                    base.Log.LogMessage(MessageImportance.Normal, "Creating IntermediateFolder for projects...");
+                    if (this.Projects.Length > 0)
+                    {
+                        int i = 0;
+                    
+                        while (i < this.Projects.Length)
+                        {
+                            var path = this.Projects[i].GetMetadata("FullPath");
+                            if(path.EndsWith("dirs.proj")) 
+                            {
+                              this.Projects[i].SetMetadata("IntermediateOutputPath", this.BaseIntermediateOutputPath);
+                            } 
+                            else 
+                            {
+                              this.Projects[i].SetMetadata("IntermediateOutputPath", 
+                                  Path.Combine(this.BaseIntermediateOutputPath, Path.GetFileNameWithoutExtension(path)));
+                            }
+                            base.Log.LogMessage(MessageImportance.Low, 
+                              string.Format("Project = {0} : IntermediateOutputPath = {1}", this.Projects[i].GetMetadata("Identity"), this.Projects[i].GetMetadata("IntermediateOutputPath")));
+                            i++;
+                        }
+                    }
+                    this.outputList = new List<ITaskItem>(this.Projects);
+                    return true;
+                }
+            }
+            ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <UsingTask TaskName="DetermineOutputFolder"
+            TaskFactory="CodeTaskFactory"
+            AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <BaseOutDir ParameterType="System.String" Required="true" />
+      <Projects ParameterType="Microsoft.Build.Framework.ITaskItem[]"  Required="true" />
+      <UpdatedProjects ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true"/>
+    </ParameterGroup>
+    <Task>
+      <Code Type="Class" Language="cs">
+        <![CDATA[
+            using System;
+            using System.Collections.Generic;
+            using System.IO;
+            using Microsoft.Build.Framework;
+            using Microsoft.Build.Utilities;
+
+            public class DetermineOutputFolder : Task
+            {  
+                private List<ITaskItem> outputList;
+                private List<ITaskItem> inputList;
+                        
+                /// <summary>
+                /// Gets or sets the base path for all output folders.
+                /// </summary>
+                [Required]
+                public string BaseOutDir { get; set; }
+                
+                /// <summary>
+                /// Gets or sets the incoming list of project files to generate output folders for.
+                /// </summary>
+                [Required]
+                public ITaskItem[] Projects
+                {
+                    get
+                    {
+                        return this.inputList.ToArray();
+                    }
+                    set
+                    {
+                        this.inputList = new List<ITaskItem>(value);
+                    }
+                }
+                
+                /// <summary>
+                /// Gets or sets the list of updated projects.
+                /// </summary>
+                [Output]
+                public ITaskItem[] UpdatedProjects
+                {
+                    get
+                    {
+                        if (this.outputList != null)
+                        {
+                            return this.outputList.ToArray();
+                        }
+                        return null;
+                    }
+                    set
+                    {
+                        this.outputList = new List<ITaskItem>(value);
+                    }
+                }
+
+                public override bool Execute()
+                {
+                    base.Log.LogMessage(MessageImportance.Normal, "Creating OutDir for projects...");
+                    if (this.Projects.Length > 0)
+                    {
+                        int i = 0;
+                        foreach(var project in this.Projects) 
+                        {
+                          var path = project.GetMetadata("OutputPath");
+                          if(!string.IsNullOrEmpty(path)) 
+                          {
+                             project.SetMetadata("OutDir", Path.Combine(this.BaseOutDir, path));
+                          }
+                          else
+                          {
+                            project.SetMetadata("OutDir", this.BaseOutDir);
+                          }
+                          base.Log.LogMessage(MessageImportance.Low, 
+                              string.Format("Project = {0} : OutDir = {1}", this.Projects[i].GetMetadata("Identity"), this.Projects[i].GetMetadata("OutDir")));
+                        }
+                    }
+                    this.outputList = new List<ITaskItem>(this.Projects);
+                    return true;
+                }
+            }
+            ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+</Project>

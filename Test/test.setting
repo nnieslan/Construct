@@ -1,0 +1,16 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+
+  <Import Project="..\construct.setting"/>
+
+  <!--
+  Global properties defined in this file
+  -->
+  <PropertyGroup>
+    <!-- local build enviornment-->
+    <CodeAnalysisRuleSet>Test.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+
+  </PropertyGroup>
+
+</Project>

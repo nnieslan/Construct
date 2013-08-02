@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <!-- Insert any customizations for settings here -->
+
+  <Import Project="construct.setting"/>
+
+  <!-- Define all ProjectFiles here -->
+  <ItemGroup>
+    <ProjectFiles Include="Dev\dirs.proj"/>
+    <ProjectFiles Include="Test\dirs.proj"/>
+    <ProjectFiles Include="Deploy\deploy.proj"/>
+  </ItemGroup>
+
+  <Import Project="$(ConstructFolder)\CWS.Build.Traversal.targets"/>
+
+  <!-- Insert any customizations for targets here -->
+
+</Project>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         DefaultTargets="Build"
+         ToolsVersion="4.0">
+
+  <!-- Insert any customizations for settings here -->
+  <Import Project="..\deploy.setting"/>
+  
+  <PropertyGroup>
+	<FolderToZip>$(OutDir)Build</FolderToZip>
+	<OutputZipFile>$(OutDir)Construct-Build-Scripts.zip</OutputZipFile>
+	<NuGetPackagingBasePath>$(OutDir)NuGet</NuGetPackagingBasePath>
+  </PropertyGroup>
+
+  <ItemGroup>
+        <BinariesToZip Include="$(OutDir)Coldwater.Construct.Build.Tasks.*"/>
+        <BinariesToZip Include="Nuget.exe"/>
+        <BinariesToZip Include="ICSharpCode.SharpZipLib.dll"/>
+        <BinariesToZip Include="tfsserverurl.txt"/>
+        <NuSpecFiles Include="Coldwater.Construct.2012.nuspec"/>
+        <NugetTools Include="Tools\chocolateyInstall.ps1"/>
+        <NugetContent Include="$(OutputZipFile)"/>
+  </ItemGroup>
+  
+  <ItemGroup>
+	<PackageTargets Include="CopyBinariesToZip" />
+	<PackageTargets Include="PackageZip" />
+        <PackageTargets Include="PackageNuGet" />
+  </ItemGroup>
+
+  <Target Name="CopyBinariesToZip">
+        <Copy SourceFiles="@(BinariesToZip)" DestinationFolder="$(OutDir)Build"/>
+  </Target>
+
+  <Import Project="$(ConstructFolder)\CWS.Build.Packaging.targets"/>
+    
+ </Project>

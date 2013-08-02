@@ -1,0 +1,190 @@
+﻿<!--
+==============================================================================
+ Copyright (c) Coldwater Software. All Rights Reserved.
+==============================================================================
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+  <!--
+  Global properties defined in this file
+  -->
+  <PropertyGroup>
+    <!-- Standard MSBuild variable defaults. -->
+    <BuildInParallel
+      Condition="'$(BuildInParallel)'==''">true</BuildInParallel>
+    <SkipNonexistentProjects
+      Condition="'$(SkipNonexistentProjects)'==''">false</SkipNonexistentProjects>
+    <SkipInvalidConfigurations
+      Condition="'$(SkipInvalidConfigurations)'==''">true</SkipInvalidConfigurations>
+    <BinplaceWithoutConfiguration
+      Condition="'$(BinplaceWithoutConfiguration)'==''">false</BinplaceWithoutConfiguration>
+    <BinFolder
+      Condition="'$(BinFolder)'==''">bin</BinFolder>
+    <!-- 
+    Determine the Configuration to use for recursive MSBuild invocations, 
+    translating the incoming Configuration variable into the outgoing 
+    ProjectConfiguration variable, which is passed into the recursive MSBuild calls.
+    Defaults to Debug.
+    -->
+    <ProjectConfiguration
+      Condition="'$(Configuration)'==''">Debug</ProjectConfiguration>
+    <ProjectConfiguration
+      Condition="'$(Configuration)'=='Dev-Deploy'">Debug</ProjectConfiguration>
+    <ProjectConfiguration
+      Condition="'$(Configuration)'=='Debug'">Debug</ProjectConfiguration>
+    <ProjectConfiguration
+      Condition="'$(Configuration)'=='QA-Deploy'">Release</ProjectConfiguration>
+    <ProjectConfiguration
+      Condition="'$(Configuration)'=='Release'">Release</ProjectConfiguration>
+    <DeploymentConfiguration>$(Configuration)</DeploymentConfiguration>
+
+    <!-- 
+    Determine the Platform to use for recursive MSBuild invocations, 
+    translating the incoming Platform variable into the outgoing 
+    ProjectPlatform variable, which is passed into the recursive MSBuild calls.
+    Defaults to AnyCPU.
+    -->
+    <Platform
+      Condition="'$(Platform)'==''">AnyCPU</Platform>
+    <ProjectPlatform
+      Condition="'$(Platform)'=='Any CPU'">AnyCPU</ProjectPlatform>
+    <ProjectPlatform
+      Condition="'$(Platform)'!='Any CPU'">$(Platform)</ProjectPlatform>
+
+    <!--
+    Assign the override for the IntermediateOutputPath variable to be used in all projects for 
+    built output including binaries, symbols and other collateral set to copy to output folder.
+    -->
+    <BaseIntermediateOutputPath
+      Condition="'$(ENLISTROOT)'!='' And '$(BaseIntermediateOutputPath)'==''">$(ENLISTROOT)\obj\$(Configuration)\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath
+      Condition="'$(WORKSPACE)'!='' And '$(BaseIntermediateOutputPath)'==''">$(WORKSPACE)\obj\$(Configuration)\</BaseIntermediateOutputPath>
+
+    <!--
+    Assign the override for the OutDir variable to be used in all projects for 
+    built output including binaries, symbols and other collateral set to copy to output folder.
+    -->
+    <OutDir
+      Condition="'$(ENLISTROOT)'!='' And '$(OutDir)'=='' And '$(BinplaceWithoutConfiguration)'!='true'">$(ENLISTROOT)\$(BinFolder)\$(Configuration)\</OutDir>
+    <OutDir
+      Condition="'$(ENLISTROOT)'!='' And '$(OutDir)'=='' And '$(BinplaceWithoutConfiguration)'=='true'">$(ENLISTROOT)\$(BinFolder)\</OutDir>
+    <OutDir
+      Condition="'$(WORKSPACE)'!='' And '$(OutDir)'=='' And '$(BinplaceWithoutConfiguration)'!='true'">$(WORKSPACE)\$(BinFolder)\$(Configuration)\</OutDir>
+    <OutDir
+      Condition="'$(WORKSPACE)'!='' And '$(OutDir)'=='' And '$(BinplaceWithoutConfiguration)'=='true'">$(WORKSPACE)\$(BinFolder)\</OutDir>
+
+    <!-- 
+    Assign default value for IsPackaging, which dictates if the build should include a Packaging pass post-build
+    -->
+    <IsPackaging
+      Condition="'$(IsPackaging)'==''">true</IsPackaging>
+
+    <!-- 
+    Assign initial values to the flag used to include/exclude the deployment package in a filtered build. 
+    -->
+    <BuildDeployPackage
+      Condition="'$(ProjectFilter)'!='' AND '$(BuildDeployPackage)'==''">true</BuildDeployPackage>
+
+    <!-- 
+    Assign initial default value to CodeAnalysis variables, 
+    which dictate whether or not to execute static analysis and what ruleset to use. 
+    -->
+    <RunCodeAnalysis
+      Condition="'$(RunCodeAnalysis)'=='' And '$(BuildType)'=='CI' And '$(Configuration)'=='Debug'">true</RunCodeAnalysis>
+    <!--CodeAnalysisRuleSet 
+      Condition="'$(CodeAnalysisRuleSet)'==''">Dev.CodeAnalysis.ruleset</CodeAnalysisRuleSet-->
+
+    <CodeAnalysisRuleSetDirectories
+      Condition="'$(ENLISTROOT)'!=''">;$(ENLISTROOT)</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleSetDirectories
+      Condition="'$(WORKSPACE)'!=''">;$(WORKSPACE)</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets
+      Condition="'$(CodeAnalysisIgnoreBuiltInRuleSets)'==''">false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+
+    <!-- 
+    Assign initial default values to NDepend variables.
+    -->
+    <RunNDepend Condition="'$(RunNDepend)'==''">false</RunNDepend>
+    <NDependFolder Condition="'$(NDependFolder)'==''"></NDependFolder>
+
+    <!-- 
+    Azure Profile Targeting 
+    -->
+    <TargetProfile Condition="'$(TargetProfile)'==''">$(Configuration)</TargetProfile>
+
+    <!-- 
+    Pex/Moles folder overrides
+    -->
+    <MolesOutputPath Condition="$(MolesOutputPath) == ''">$(OutDir)MolesAssemblies</MolesOutputPath>
+    <MolesIntermediatePath Condition="$(MolesIntermediatePath) == ''">$(IntermediateOutputPath)Moles</MolesIntermediatePath>
+
+    <!-- 
+    Fortify Code Analysis properties
+    -->
+    <FortifyLibDirs Condition="'$(FortifyLibDirs)'=='' And '$(ENLISTROOT)'!=''">$(ENLISTROOT)\References</FortifyLibDirs>
+
+    <!-- 
+    Custom Conditionals 
+    -->
+    <BuildType Condition="'$(BuildType)'==''">Dev</BuildType>
+    <BuildNumber Condition="'$(BuildNumber)'==''">0.0.0.1</BuildNumber>
+    <BranchName Condition="'$(BranchName)'==''">Main</BranchName>
+    
+    <!-- 
+    Include non-critical CodeAnalysis variables into the CustomProperties that are passed down the build tree. 
+    -->
+    <CustomProperties>
+      $(CustomProperties);
+      CodeAnalysisRuleSetDirectories=$(CodeAnalysisRuleSetDirectories);
+      CodeAnalysisIgnoreBuiltInRuleSets=$(CodeAnalysisIgnoreBuiltInRuleSets);
+      CodeAnalysisUseTypeNameInSuppression=$(CodeAnalysisUseTypeNameInSuppression);
+      MolesOutputPath=$(MolesOutputPath);
+      MolesIntermediatePath=$(MolesIntermediatePath);
+      RunFortifyScan=$(RunFortifyScan);
+      FortifyLibDirs=$(FortifyLibDirs);
+      TargetProfile=$(TargetProfile);
+      Official=$(Official);
+      BuildType=$(BuildType);
+      BuildNumber=$(BuildNumber);
+      BranchName=$(BranchName);
+      RunNDepend=$(RunNDepend);
+      NDependFolder=$(NDependFolder)
+    </CustomProperties>
+
+    <!--
+    Set up default Strong Naming variables, using a common SNK key file located in the Lib folder.
+    -->
+    <AssemblyOriginatorKeyFile
+      Condition="'$(ENLISTROOT)'!='' And '$(AssemblyOriginatorKeyFile)'=='' ">$(ENLISTROOT)\ProductStrongName.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile
+      Condition="'$(WORKSPACE)'!='' And '$(AssemblyOriginatorKeyFile)'=='' ">$(WORKSPACE)\ProductStrongName.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly
+      Condition="'$(SignAssembly)'==''">false</SignAssembly>
+    <SignAssembly
+      Condition="'$(AssemblyOriginatorKeyFile)'!='' And '$(Official)'=='True' And '$(SignAssembly)'=='' ">true</SignAssembly>
+
+
+    <!-- 
+    Set up NuGet packaging parameters
+    -->
+    <NuGetToolsPath Condition="'$(NuGetToolsPath)'==''">$(ConstructFolder)</NuGetToolsPath>
+    <!--
+    <NuGetToolsPath Condition="'$(ENLISTROOT)'!=''">$(ENLISTROOT)\build</NuGetToolsPath>
+    <NuGetToolsPath Condition="'$(WORKSPACE)'!=''">$(WORKSPACE)\build</NuGetToolsPath>
+    -->
+    <NuGetExePath>$(NuGetToolsPath)Nuget.exe</NuGetExePath>
+    <!--NuGetPackagesConfig>$(ProjectDir)packages.config</NuGetPackagesConfig>
+    <NuGetPackagesDir Condition="'$(ENLISTROOT)'!=''">$(ENLISTROOT)\packages</NuGetPackagesDir>
+    <NuGetPackagesDir Condition="'$(WORKSPACE)'!=''">$(WORKSPACE)\packages</NuGetPackagesDir-->
+    <NuGetPackageOutputDir Condition="$(PackageOutputDir) == ''">$(OutDir.Trim('\\'))</NuGetPackageOutputDir>
+
+    <!-- Package sources used to restore packages. By default will used the registered sources under %APPDATA%\NuGet\NuGet.Config -->
+    <!-- <PackageSources></PackageSources> -->
+
+    <!-- Enable the restore command to run before builds -->
+    <RestoreNuGetPackages Condition="$(RestoreNuGetPackages) == ''">true</RestoreNuGetPackages>
+
+  </PropertyGroup>
+
+</Project>

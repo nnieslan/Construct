@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+==============================================================================
+ Copyright (c) Coldwater Software. All Rights Reserved.
+==============================================================================
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         DefaultTargets="Build"
+         ToolsVersion="4.0">
+
+  <PropertyGroup>
+    <ConstructTasksFolder Condition="'$(ConstructTasksFolder)'=='' And '$(ConstructFolder)'!=''">$(ConstructFolder)</ConstructTasksFolder>
+    <ConstructTasksFolder Condition="'$(ConstructTasksFolder)'=='' And '$(ENLISTROOT)'!='' And Exists('$(ENLISTROOT)\build\')">$(ENLISTROOT)\build\</ConstructTasksFolder>
+    <ConstructTasksFolder Condition="'$(ConstructTasksFolder)'=='' And '$(WORKSPACE)'!='' And Exists('$(WORKSPACE)\build\')">$(WORKSPACE)\build\</ConstructTasksFolder>
+    <ConstructTaskAssemblyFile>$(ConstructTasksFolder)Coldwater.Construct.Build.Tasks.dll</ConstructTaskAssemblyFile>
+
+  </PropertyGroup>
+  <Import Project="$(ConstructTasksFolder)CWS.Build.tasks"/>
+
+  <!-- Defines the standard Build target ordering. -->
+  <PropertyGroup>
+    <BuildDependsOn>
+      CheckNuGetPrerequisites;
+      BeforeBuild;
+      CoreBuild;
+      AfterBuild;
+      FortifyScanAssembly
+    </BuildDependsOn>
+  </PropertyGroup>
+
+  <!-- 
+  The property assignments here are done to allow forwarding of values from the 
+  current MSBuild scope to children MSBuild scopes while the build process is 
+  walking the source code tree and building projects recursively. In each case,
+  we are creating a string of key-value pairs (semicolon-delimited) that can be 
+  passed to the child MSBuild scopes and parsed.  Remember that all $() property
+  references will be replaced with their current values at runtime.
+  -->
+  <PropertyGroup>
+    <!-- The standard set of MSBuild properties necessary for recursive MSBuild invocations. -->
+    <StandardProperties>
+      ProjectFilter=$(ProjectFilter);
+      BuildProjectReferences=$(BuildProjectReferences);
+      SkipInvalidConfigurations=$SkipInvalidConfigurations);
+      Configuration=$(ProjectConfiguration);
+      Platform=$(ProjectPlatform);
+      BaseIntermediateOutputPath=$(BaseIntermediateOutputPath);
+      IsPackaging=$(IsPackaging)
+    </StandardProperties>
+    <!-- The standard set of CodeAnalysis properties. -->
+    <CodeAnalysisProperties Condition="'$(RunCodeAnalysis)'!=''">
+      RunCodeAnalysis=$(RunCodeAnalysis);$(CodeAnalysisProperties)
+    </CodeAnalysisProperties>
+    <CodeAnalysisProperties Condition="'$(CodeAnalysisRuleSet)'!=''">
+      CodeAnalysisRuleSet=$(CodeAnalysisRuleSet);$(CodeAnalysisProperties)
+    </CodeAnalysisProperties>
+    <!-- The standard set of StrongNaming properties. -->
+    <StrongNameProperties>
+      SignAssembly=$(SignAssembly);
+      AssemblyOriginatorKeyFile=$(AssemblyOriginatorKeyFile)
+    </StrongNameProperties>
+    <NuGetProperties>
+      RestoreNuGetPackages=$(RestoreNuGetPackages);
+      BuildNuGetPackage=$(BuildNuGetPackage);
+      NuGetToolsPath=$(NuGetToolsPath);
+      NuGetPackageOutputDir=$(NuGetPackageOutputDir)
+    </NuGetProperties>
+    <ProjectExtensionFilter Condition="'$(ProjectExtensionFilter)'==''">csproj</ProjectExtensionFilter>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- if no project filter is passed to MSBuild, default to an "anything" filter -->
+    <FilterRegex Condition="'$(ProjectFilter)' == ''">.+</FilterRegex>
+    <!-- if a regex filter is passed to MSBuild, inject it into the standard RegEx 
+         This regex says "build any project entries that match the following patterns:
+          - SomeFolder\dirs.proj
+          - SomeFolder\$(ProjectFilter) - where project filter is a regex is passed in 
+    -->
+    <FilterRegex
+      Condition="'$(ProjectFilter)' != '' AND '$(BuildDeployPackage)'=='true'">^[\.?\w+]+\\(dirs\.proj|deploy\.proj|$(ProjectFilter))$</FilterRegex>
+    <FilterRegex
+      Condition="'$(ProjectFilter)' != '' AND '$(BuildDeployPackage)'!='true'">^[\.?\w+]+\\(dirs\.proj|$(ProjectFilter))$</FilterRegex>
+
+  </PropertyGroup>
+
+  <Target Name="CheckNuGetPrerequisites" Condition="'$(RestoreNuGetPackages)'=='true'">
+    <!-- Raise an error if we're unable to locate nuget.exe  -->
+    <Error Condition="!Exists('$(NuGetExePath)')" Text="Unable to locate '$(NuGetExePath)'" />
+  </Target>
+
+  <!-- BeforeBuild and AfterBuild are placeholders here, to be overridden as necessary in consuming *proj files. -->
+  <Target Name="BeforeBuild" />
+  <Target Name="AfterBuild" />
+
+  <!-- 
+  The Build target itself doesn't do anything.  It's a placeholder using to 
+  allow MSBuild to invoke its dependencies, which BeforeBuild, CoreBuild, & AfterBuild
+  -->
+  <Target
+        Name="Build"
+        Condition=" '$(_InvalidConfigurationWarning)' != 'true' "
+        DependsOnTargets="$(BuildDependsOn)"
+        Returns="$(TargetPath)" />
+
+  <Target Name="CoreBuild" >
+    <!--
+    Properties BuildInParallel and SkipNonexistentProjects
+    should be defined in the .setting file.
+    -->
+
+    <Message Text="Incoming Prefiltered Project = %(ProjectFiles.Identity)" Importance="Normal"/>
+    <Message Text="Project Filter Regex = $(FilterRegex)" Importance="Normal"/>
+    <Coldwater.Construct.Build.Tasks.RegexFilterTask
+      ItemsToFilter="@(ProjectFiles)"
+      RegexPattern="$(FilterRegex)">
+      <Output TaskParameter="OutputItems" ItemName="FilteredProjectFiles"/>
+      <Output TaskParameter="ItemCount" ItemName="FilteredProjectCount"/>
+    </Coldwater.Construct.Build.Tasks.RegexFilterTask>
+    <Message Condition=" '%(FilteredProjectFiles.Identity)' != '' "
+             Text="Filtered Project: %(FilteredProjectFiles.Identity)"
+             Importance="Normal"/>
+
+    <RestoreNuGetPackages Condition="'$(RestoreNugetPackages)'=='true'"
+                          Project="%(FilteredProjectFiles.FullPath)"
+                          NuGetExe="$(NuGetExePath)"
+                          ConstructDir="$(ConstructTasksFolder)"/>
+
+    <Message Importance="Low" Text="Reading lines of $(ConstructTasksFolder)tfsserverurl.txt" />
+    <ReadLinesFromFile File="$(ConstructTasksFolder)tfsserverurl.txt" Condition="'@(TfsServerUrl)'==''">
+      <Output TaskParameter="Lines" ItemName="TfsServerUrl" />
+    </ReadLinesFromFile>
+    <Message Importance="Low" Text="TfsServerUrl = @(TfsServerUrl)" />
+
+    <Coldwater.Construct.Build.Tasks.ProjectEditsPendingTask
+      Condition="'@(TfsServerUrl)'!='' And ('$(BuildType)'!='COR' And '$(BuildType)'!='CI')"
+      TfsServerUrl="@(TfsServerUrl)"
+      Projects="@(FilteredProjectFiles)"
+      ProjectExtensionFilter="$(ProjectExtensionFilter)">
+      <Output TaskParameter="OutputItems" ItemName="EditsPendingProjectFiles"/>
+    </Coldwater.Construct.Build.Tasks.ProjectEditsPendingTask>
+
+    <ItemGroup Condition="'@(TfsServerUrl)'=='' Or ('$(BuildType)'=='COR' Or '$(BuildType)'=='CI')">
+      <EditsPendingProjectFiles Include="@(FilteredProjectFiles)"/>
+    </ItemGroup>
+
+    <DetermineIntermediateFolder
+      BaseIntermediateOutputPath="$(BaseIntermediateOutputPath)"
+      Projects="@(EditsPendingProjectFiles)">
+      <Output TaskParameter="UpdatedProjects" ItemName="IntermediateProjectFilesToBuild"/>
+    </DetermineIntermediateFolder>
+
+    <DetermineOutputFolder
+      BaseOutDir="$(OutDir)"
+      Projects="@(IntermediateProjectFilesToBuild)">
+      <Output TaskParameter="UpdatedProjects" ItemName="ProjectFilesToBuild"/>
+    </DetermineOutputFolder>
+
+    <Message Importance="Normal" Text="IntermediateOutputPath = %(ProjectFilesToBuild.IntermediateOutputPath)\" />
+    <Message Importance="Normal" Text="OutDir = %(ProjectFilesToBuild.OutDir)\" />
+
+
+    <!-- IntermediateOutputPath=$(IntermediateOutputPath)\%(UpdatedProjectFiles.Identity)\;-->
+    <MSBuild Projects="@(ProjectFilesToBuild)"
+             Condition="'$(RunCodeAnalysis)'==''"
+             BuildInParallel="$(BuildInParallel)"
+             SkipNonexistentProjects="$(SkipNonexistentProjects)"
+             Properties="$(StandardProperties);OutDir=%(ProjectFilesToBuild.OutDir)\;IntermediateOutputPath=%(ProjectFilesToBuild.IntermediateOutputPath)\;$(CodeAnalysisProperties);RunCodeAnalysis=%(ProjectFilesToBuild.HasPendingChanges);$(StrongNameProperties);$(CustomProperties);$(NuGetProperties)"
+             Targets="Build"
+             >
+      <Output TaskParameter="TargetOutputs" ItemName="ProjectOutputs"/>
+    </MSBuild>
+
+    <MSBuild Projects="@(ProjectFilesToBuild)"
+             Condition="'$(RunCodeAnalysis)'!=''"
+             BuildInParallel="$(BuildInParallel)"
+             SkipNonexistentProjects="$(SkipNonexistentProjects)"
+             Properties="$(StandardProperties);OutDir=%(ProjectFilesToBuild.OutDir)\;IntermediateOutputPath=%(ProjectFilesToBuild.IntermediateOutputPath)\;$(CodeAnalysisProperties);$(StrongNameProperties);$(CustomProperties);$(NuGetProperties)"
+             Targets="Build"
+             >
+      <Output TaskParameter="TargetOutputs" ItemName="ProjectOutputs"/>
+    </MSBuild>
+    <Message Importance="Low" Text="ProjectOutputs = %(ProjectOutputs.Identity)" />
+
+  </Target>
+
+
+  <Target Name="FortifyScanAssembly" Condition="'$(RunFortifyScan)'=='ASSEMBLY' AND '@(ProjectOutputs)'!='' ">
+    <Message Text="FortifyScanAssembly Target Params: $(OutDir) $(ConstructTasksFolder) @(ProjectOutputs)" />
+      <FortifyScanAssembly
+        AssemblyFile="@(ProjectOutputs)"
+        OutDir="$(OutDir)"
+        ConstructDir="$(ConstructTasksFolder)" />
+    </Target>
+  
+
+  <!-- Properties used to define the ordering of the Rebuild target. -->
+  <PropertyGroup>
+    <!-- These statements allow project files to override the default target from Build to something else if they are custom.-->
+    <_ProjectDefaultTargets Condition="'$(MSBuildProjectDefaultTargets)' != ''">$(MSBuildProjectDefaultTargets)</_ProjectDefaultTargets>
+    <_ProjectDefaultTargets Condition="'$(MSBuildProjectDefaultTargets)' == ''">Build</_ProjectDefaultTargets>
+
+    <!-- This basically says that Rebuild is really a Clean & Build back to back. -->
+    <RebuildDependsOn>
+      BeforeRebuild;
+      Clean;
+      $(_ProjectDefaultTargets);
+      AfterRebuild;
+    </RebuildDependsOn>
+
+    <!-- This basically says that Rebuild is really a Clean & Build back to back. -->
+    <RebuildDependsOn Condition=" '$(MSBuildProjectDefaultTargets)' == 'Rebuild' " >
+      BeforeRebuild;
+      Clean;
+      Build;
+      AfterRebuild;
+    </RebuildDependsOn>
+  </PropertyGroup>
+
+  <!-- Similar to Build above, Rebuild is a placeholder that allows it's DependsOn targets to execute. -->
+  <Target
+      Name="Rebuild"
+      Condition=" '$(_InvalidConfigurationWarning)' != 'true' "
+      DependsOnTargets="$(RebuildDependsOn)"
+      Returns="$(TargetPath)"/>
+
+  <Target Name="BeforeRebuild"/>
+  <Target Name="AfterRebuild"/>
+
+  <!-- Clean follows the same steps as Build and Rebuild, refer to them for commentary. -->
+  <PropertyGroup>
+    <CleanDependsOn>
+      BeforeClean;
+      CoreClean;
+      AfterClean
+    </CleanDependsOn>
+  </PropertyGroup>
+  <Target
+      Name="Clean"
+      Condition=" '$(_InvalidConfigurationWarning)' != 'true' "
+      DependsOnTargets="$(CleanDependsOn)" />
+
+  <Target Name="BeforeClean"/>
+  <Target Name="AfterClean"/>
+  <Target Name="CoreClean"
+          Condition="'@(ProjectFiles)'!=''">
+
+    <Message Text="Incoming Prefiltered Project = %(ProjectFiles.Identity)" Importance="Normal"/>
+    <Message Text="Project Filter Regex = $(FilterRegex)" Importance="Normal"/>
+    <Coldwater.Construct.Build.Tasks.RegexFilterTask
+      ItemsToFilter="@(ProjectFiles)"
+      RegexPattern="$(FilterRegex)">
+      <Output TaskParameter="OutputItems" ItemName="FilteredProjectFiles"/>
+      <Output TaskParameter="ItemCount" ItemName="FilteredProjectCount"/>
+    </Coldwater.Construct.Build.Tasks.RegexFilterTask>
+    <Message Condition=" '%(FilteredProjectFiles.Identity)' != '' "
+             Text="Filtered Project: %(FilteredProjectFiles.Identity)"
+             Importance="Normal"/>
+
+    <DetermineIntermediateFolder 
+      BaseIntermediateOutputPath="$(BaseIntermediateOutputPath)"
+      Projects="@(FilteredProjectFiles)" >
+      <Output TaskParameter="UpdatedProjects" ItemName="IntermediateProjectFilesToBuild"/>
+    </DetermineIntermediateFolder>
+
+    <DetermineOutputFolder
+      BaseOutDir="$(OutDir)"
+      Projects="@(IntermediateProjectFilesToBuild)">
+      <Output TaskParameter="UpdatedProjects" ItemName="ProjectFilesToBuild"/>
+    </DetermineOutputFolder>
+
+    <Message Importance="Normal" Text="IntermediateOutputPath = %(ProjectFilesToBuild.IntermediateOutputPath)\" />
+    <Message Importance="Normal" Text="OutDir = %(ProjectFilesToBuild.OutDir)\" />
+
+    <MSBuild Projects="@(ProjectFilesToBuild)"
+             BuildInParallel="$(BuildInParallel)"
+             SkipNonexistentProjects="$(SkipNonexistentProjects)"
+             Targets="Clean"
+             Properties="$(StandardProperties);OutDir=%(ProjectFilesToBuild.OutDir)\;IntermediateOutputPath=%(ProjectFilesToBuild.IntermediateOutputPath)\;$(CodeAnalysisProperties);$(StrongNameProperties);$(CustomProperties);$(NuGetProperties)"
+             />
+  </Target>
+
+</Project>

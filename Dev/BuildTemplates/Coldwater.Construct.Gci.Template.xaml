@@ -1,0 +1,140 @@
+﻿<Activity mc:Ignorable="sap"
+          x:Class="Coldwater.Construct.Gci.Process"
+          this:Process.GciWorkflowParameters ="[New Coldwater.Construct.Build.Tasks.Activities.GciWorkflowDetails()]"
+          this:Process.Verbosity="[Microsoft.TeamFoundation.Build.Workflow.BuildVerbosity.Detailed]"
+          xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:cbta="clr-namespace:Coldwater.Construct.Tfs.Activities;assembly=Coldwater.Construct.Tfs.Activities"
+ xmlns:cbtau="clr-namespace:Coldwater.Construct.Tfs.Activities.UI;assembly=Coldwater.Construct.Tfs.Activities"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:mtbc="clr-namespace:Microsoft.TeamFoundation.Build.Client;assembly=Microsoft.TeamFoundation.Build.Client"
+          xmlns:mtbc1="clr-namespace:Microsoft.TeamFoundation.Build.Common;assembly=Microsoft.TeamFoundation.Build.Common"
+          xmlns:mtbw="clr-namespace:Microsoft.TeamFoundation.Build.Workflow;assembly=Microsoft.TeamFoundation.Build.Workflow"
+          xmlns:mtbwa="clr-namespace:Microsoft.TeamFoundation.Build.Workflow.Activities;assembly=Microsoft.TeamFoundation.Build.Workflow, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+          xmlns:mtbwa1="clr-namespace:Microsoft.TeamFoundation.Build.Workflow.Activities;assembly=Microsoft.TeamFoundation.Build.Workflow"
+          xmlns:mtlc="clr-namespace:Microsoft.TeamFoundation.Lab.Client;assembly=Microsoft.TeamFoundation.Lab.Client"
+          xmlns:mtltc="clr-namespace:Microsoft.TeamFoundation.Lab.TestIntegration.Client;assembly=Microsoft.TeamFoundation.Lab.TestIntegration.Client"
+          xmlns:mtlwa="clr-namespace:Microsoft.TeamFoundation.Lab.Workflow.Activities;assembly=Microsoft.TeamFoundation.Lab.Workflow.Activities"
+          xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+          xmlns:s="clr-namespace:System;assembly=System"
+          xmlns:s1="clr-namespace:System;assembly=System.Core"
+          xmlns:s2="clr-namespace:System;assembly=System.ServiceModel"
+          xmlns:s3="clr-namespace:System;assembly=mscorlib"
+          xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+          xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities"
+          xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+          xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+          xmlns:this="clr-namespace:Coldwater.Construct.Gci"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="Metadata" Type="mtbw:ProcessParameterMetadataCollection" />
+    <x:Property Name="GciWorkflowParameters" Type="InArgument(cbta:GciWorkflowDetails)" />
+    <x:Property Name="Verbosity" Type="InArgument(mtbw:BuildVerbosity)" />
+    <x:Property Name="VersionOctetToIncrement" Type="InArgument(x:Int32)" />
+    <x:Property Name="BuildVersionFile" Type="InArgument(x:String)" />
+  </x:Members>
+  <this:Process.Metadata>
+    <mtbw:ProcessParameterMetadataCollection>
+      <mtbw:ProcessParameterMetadata BrowsableWhen="Always"
+                                     Category="Gated Check-in Delegation Parameters"
+                                     Description="Specify the build definitions to use in this GCI delegation workflow."
+                                     DisplayName="Workflow settings"
+                                     ParameterName="GciWorkflowParameters" />
+      <mtbw:ProcessParameterMetadata BrowsableWhen="Always"
+                                     Category="Versioning"
+                                     DisplayName="Branch Version File"
+                                     ParameterName="BuildVersionFile"
+                                     Required="True" />
+      <mtbw:ProcessParameterMetadata BrowsableWhen="Always"
+                                     Category="Versioning"
+                                     DisplayName="Version Octet to increment"
+                                     ParameterName="VersionOctetToIncrement"
+                                     Required="True" />
+    </mtbw:ProcessParameterMetadataCollection>
+  </this:Process.Metadata>
+  <sap:VirtualizedContainerService.HintSize>843,4644</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces serialized as XML namespaces</mva:VisualBasic.Settings>
+  <Sequence DisplayName="Gated Check-in Delegation Workflow"
+            sad:XamlDebuggerXmlReader.FileName="d:\src\construct_main\Dev\BuildTemplates\Coldwater.Construct.Gci.Template.xaml"
+            sap:VirtualizedContainerService.HintSize="803,4604"
+            mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="mtbc:IBuildDetail" Name="BuildDetail" />
+      <Variable x:TypeArguments="x:String" Name="BuildLocation" />
+      <Variable x:TypeArguments="x:Int32" Name="QueueBuildId" />
+      <Variable x:TypeArguments="mtbc:BuildStatus" Default="[Microsoft.TeamFoundation.Build.Client.BuildStatus.Succeeded]" Name="BuildStatus" />
+      <Variable x:TypeArguments="mtbc:IBuildDetail" Name="ChildBuildDetail" />
+      <Variable x:TypeArguments="x:String" Name="BuildNumber" />
+      <Variable x:TypeArguments="x:String" Default="$(BuildDefinitionName) $(Version)_$(Date:yyyyMMdd)$(Rev:.r)" Name="BuildNumberFormat" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <mtbwa1:GetBuildDetail DisplayName="Get Build Details" sap:VirtualizedContainerService.HintSize="781,22" Result="[BuildDetail]" />
+    <mtbwa1:InvokeForReason DisplayName="Update Build Number for Triggered Builds" sap:VirtualizedContainerService.HintSize="781,270" Reason="Triggered">
+      <mtbwa1:InvokeForReason.Variables>
+        <Variable x:TypeArguments="x:String" Name="NewBuildVersionNumber" />
+      </mtbwa1:InvokeForReason.Variables>
+      <cbta:GetAssemblyVersion BuildDetail="[BuildDetail]" 
+                               sap:VirtualizedContainerService.HintSize="200,22" 
+                               OctetToIncrement="[VersionOctetToIncrement]" 
+                               Result="[NewBuildVersionNumber]" 
+                               VersionFile="[BuildVersionFile]" />
+      <cbta:UpdateVersionNumberInBuildNumber BuildNumberFormat="[BuildNumberFormat]" 
+                                             sap:VirtualizedContainerService.HintSize="200,22" 
+                                             Result="[BuildNumberFormat]" 
+                                             VersionNumber="[NewBuildVersionNumber]" />
+      <mtbwa1:UpdateBuildNumber BuildNumberFormat="[BuildNumberFormat]" 
+                                DisplayName="Update Build Number" 
+                                sap:VirtualizedContainerService.HintSize="200,22" />
+    </mtbwa1:InvokeForReason>
+    <If Condition="[GciWorkflowParameters.BuildDetails.IsTeamSystemBuild = True AndAlso GciWorkflowParameters.BuildDetails.QueueNewBuild = True]" 
+        DisplayName="If Build is needed" 
+        sap:VirtualizedContainerService.HintSize="781,412">
+      <If.Then>
+        <Sequence DisplayName="Do Build" sap:VirtualizedContainerService.HintSize="301,306">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <mtlwa:RunWorkflow BuildController="{x:Null}" 
+                             LabEnvironmentUri="{x:Null}" 
+                             BuildDefinition="[GciWorkflowParameters.BuildDetails.BuildDefinitionName]" 
+                             DisplayName="Start Build Workflow" 
+                             sap:VirtualizedContainerService.HintSize="242,22" 
+                             ProjectName="[BuildDetail.TeamProject]" 
+                             Result="[QueueBuildId]" />
+          <mtlwa:WaitForWorkflow AllowPartiallySucceededBuild="True" 
+                                 BuildDetails="[ChildBuildDetail]" 
+                                 DisplayName="Wait For Build To Complete" 
+                                 sap:VirtualizedContainerService.HintSize="242,22" 
+                                 LabWorkflowType="[Microsoft.TeamFoundation.Lab.Workflow.Activities.WorkflowType.Build]" 
+                                 MaxConsecutiveFailuresToIgnoreDuringWaitForCompletion="[3]" 
+                                 MaxWaitTime="[TimeSpan.Zero]" 
+                                 QueueBuildId="[QueueBuildId]" 
+                                 RefreshInterval="[System.TimeSpan.FromMinutes(1)]" 
+                                 Result="[BuildStatus]" 
+                                 ThrowOnError="True" />
+          <Assign DisplayName="Set Build Location" sap:VirtualizedContainerService.HintSize="242,58">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Uri">[LabWorkflowParameters.BuildDetails.BuildUri]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Uri">[ChildBuildDetail.Uri]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </If.Then>
+    </If>
+    
+    <mtlwa:GetBuildLocationAndBuildNumber SelectedBuild="{x:Null}" 
+                                          BuildDetails="[GciWorkflowParameters.BuildDetails]" 
+                                          BuildNumber="[BuildNumber]" 
+                                          DisplayName="Get Build Location And Build Number" 
+                                          sap:VirtualizedContainerService.HintSize="781,22" 
+                                          Result="[BuildLocation]" />
+    <mtbwa1:SetBuildProperties DisplayName="Set build status" sap:VirtualizedContainerService.HintSize="781,22" PropertiesToSet="Status" Status="[BuildStatus]" />
+  </Sequence>
+</Activity>

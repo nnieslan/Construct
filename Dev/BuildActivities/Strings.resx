@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BuildAgentCheckInComment" xml:space="preserve">
+    <value>Build Agent</value>
+  </data>
+  <data name="BuildVersionIncrementFailureError" xml:space="preserve">
+    <value>The build version was not incremented successfully.</value>
+  </data>
+  <data name="CheckInCompleted" xml:space="preserve">
+    <value>Pending changes to Build agent workspace checked in with changeset number '{0}'</value>
+    <comment>{0} is the ChangeSet Id of the check in.</comment>
+  </data>
+  <data name="CopyingFiles" xml:space="preserve">
+    <value>Copying {0} to {1}...</value>
+    <comment>{0} is the source location and {1} is the destination</comment>
+  </data>
+  <data name="CopySourceLocationMissingError" xml:space="preserve">
+    <value>SourceLocation '{0}' doesn't exist.</value>
+    <comment>{0} is the missing location</comment>
+  </data>
+  <data name="CreateDestinationLocation" xml:space="preserve">
+    <value>Creating destination folder '{0}'.</value>
+    <comment>{0} is the created folder</comment>
+  </data>
+  <data name="DefaultIncludeAssemblyFileVersionAttribute" xml:space="preserve">
+    <value>Defaulting to inclusion of AssemblyFileVersion attribute in increment.</value>
+  </data>
+  <data name="DefaultIncludeAssemblyVersionAttribute" xml:space="preserve">
+    <value>Defaulting to inclusion of AssemblyVersion attribute in increment.</value>
+  </data>
+  <data name="DownloadingFile" xml:space="preserve">
+    <value>Downloading '{0}'...</value>
+    <comment>{0} is the file being downloaded.</comment>
+  </data>
+  <data name="InvalidAssemblyInfoMaskError" xml:space="preserve">
+    <value>The assembly info file mask is empty and invalid.</value>
+  </data>
+  <data name="InvalidBuildDetailError" xml:space="preserve">
+    <value>No valid BuildDetail exists.</value>
+  </data>
+  <data name="InvalidDirectoryError" xml:space="preserve">
+    <value>The directory '{0}' doesn't exist.</value>
+    <comment>{0} is the missing directory.</comment>
+  </data>
+  <data name="InvalidFullVersionFilePathError" xml:space="preserve">
+    <value>The verison file path '{0}' is invalid, it doesn't exist.</value>
+    <comment>{0} is the full path to the version file specified.</comment>
+  </data>
+  <data name="InvalidOctetToIncrementError" xml:space="preserve">
+    <value>The OctetToIncrement '{0}' is not valid, it must be a value between 1 &amp; 4</value>
+    <comment>{0} the value specified for OctetToIncrement</comment>
+  </data>
+  <data name="InvalidStatLightExeError" xml:space="preserve">
+    <value>The path '{0}' to the StatLight executable doesn't exist.</value>
+    <comment>{0} is the statlight path indicated.</comment>
+  </data>
+  <data name="InvalidTestDllError" xml:space="preserve">
+    <value>The path '{0}' to the test binary doesn't exist.</value>
+    <comment>{0} is the test dll path indicated.</comment>
+  </data>
+  <data name="InvalidTestParameters" xml:space="preserve">
+    <value>The TestParameters were invalid.</value>
+  </data>
+  <data name="InvalidTestResultsFileError" xml:space="preserve">
+    <value>The test results file '{0}' doesn't exist.</value>
+    <comment>{0} is the invalid test results file.</comment>
+  </data>
+  <data name="InvalidTestXapList" xml:space="preserve">
+    <value>No XAP files were specified for testing.</value>
+  </data>
+  <data name="InvalidTfsUserError" xml:space="preserve">
+    <value>Could not find user {0} in TFS.</value>
+    <comment>{0} is the invalid user name.</comment>
+  </data>
+  <data name="InvalidVersionFilePathError" xml:space="preserve">
+    <value>The verison file path is empty and invalid.</value>
+  </data>
+  <data name="NoCICheckInComment" xml:space="preserve">
+    <value>***NO_CI***</value>
+  </data>
+  <data name="OctetToIncrementFailedReturnValue" xml:space="preserve">
+    <value>No version found</value>
+  </data>
+  <data name="PendingChangesUndoneError" xml:space="preserve">
+    <value>'{0}' build-related changes undone.</value>
+    <comment>{0} is the number of changes undone.</comment>
+  </data>
+  <data name="PolicyOverrideCheckInComment" xml:space="preserve">
+    <value>Auto Checkin</value>
+  </data>
+  <data name="StatlightTestRunId" xml:space="preserve">
+    <value>StatLight TestRun Id: {0}</value>
+    <comment>{0} is the test run id.</comment>
+  </data>
+  <data name="UnableToCheckInError" xml:space="preserve">
+    <value>Unable to check-in pending changes within the Build Agent workspace. Undo-ing any pending build-related changes.</value>
+  </data>
+  <data name="UnableToFindWindowsUserError" xml:space="preserve">
+    <value>Could not find current Windows user.</value>
+  </data>
+  <data name="UsingDefaultTestResultFile" xml:space="preserve">
+    <value>No results file specified, defaulting to {0}.trx.</value>
+    <comment>{0} is the name of the results file.</comment>
+  </data>
+  <data name="UsingDefaultTestResultFileType" xml:space="preserve">
+    <value>No results file specified, defaulting to MSGenericTest.</value>
+  </data>
+  <data name="VersionFileFound" xml:space="preserve">
+    <value>Version '{0}' found...</value>
+    <comment>{0} is the file found.</comment>
+  </data>
+  <data name="VersionIncremented" xml:space="preserve">
+    <value>Incrementing the '{0}' attribute in the file '{1}' to '{2}'."</value>
+    <comment>{0} is the attribute, {1} is the file, {2} is the new version number</comment>
+  </data>
+  <data name="CopyLocationDestinationMessage" xml:space="preserve">
+    <value>The copy destination folder is: {0}</value>
+    <comment>{0} is the destination folder for a copy operation </comment>
+  </data>
+  <data name="CopyLocationDestinationMissingError" xml:space="preserve">
+    <value>DestinationLocation is empty.</value>
+  </data>
+  <data name="CopyLocationFileSpecMessage" xml:space="preserve">
+    <value>The copy filespec is: {0}</value>
+    <comment>{0} is the file spec such as *.*</comment>
+  </data>
+  <data name="CopyLocationSourceMessage" xml:space="preserve">
+    <value>The copy source folder is: {0}</value>
+    <comment>{0} is the source folder for a copy operation</comment>
+  </data>
+  <data name="CopyLocationSourceMissingError" xml:space="preserve">
+    <value>SourceLocation is empty.</value>
+  </data>
+  <data name="FilterItemsMessage" xml:space="preserve">
+    <value>Attemping to Filter incoming items.</value>
+  </data>
+  <data name="ItemsToFilterMissingError" xml:space="preserve">
+    <value>A list of ItemsToFilter is required.</value>
+  </data>
+  <data name="RegexPatternMissingError" xml:space="preserve">
+    <value>RegexPattern is required</value>
+  </data>
+  <data name="NuGetPackagesFileSpecMessage" xml:space="preserve">
+    <value>The NuGet package filespec is: {0}</value>
+    <comment>{0} is the file spec such as *.*</comment>
+  </data>
+  <data name="NuGetPackageSourceLocationMissingError" xml:space="preserve">
+    <value>SourceLocation '{0}' doesn't exist.</value>
+    <comment>{0} is the missing location</comment>
+  </data>
+  <data name="NuGetPackageSourceMessage" xml:space="preserve">
+    <value>The NuGet package source folder is: {0}</value>
+    <comment>{0} is the source folder for a NuGet upload operation</comment>
+  </data>
+  <data name="NuGetPackageSourceMissingError" xml:space="preserve">
+    <value>SourceLocation is empty.</value>
+  </data>
+  <data name="NuGetServerUriMessage" xml:space="preserve">
+    <value>The destination NuGet Server is: {0}</value>
+    <comment>{0} is the destination NuGet host</comment>
+  </data>
+  <data name="NuGetServerUriMissingError" xml:space="preserve">
+    <value>DestinationNuGetUri is empty.</value>
+  </data>
+  <data name="te" xml:space="preserve">
+    <value>ttt</value>
+  </data>
+</root>

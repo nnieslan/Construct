@@ -1,0 +1,155 @@
+﻿<Activity mc:Ignorable="sads sap" x:Class="Coldwater.Construct.ContinuousDeploy.Process"
+          this:Process.AgentSettings="[New Microsoft.TeamFoundation.Build.Workflow.Activities.AgentSettings() With {.MaxWaitTime = New System.TimeSpan(4, 0, 0), .MaxExecutionTime = New System.TimeSpan(0, 0, 0), .TagComparison = Microsoft.TeamFoundation.Build.Workflow.Activities.TagComparison.MatchExactly}]"
+          this:Process.BuildNumberFormat="$(BuildDefinitionName)_$(Version)_$(Date:yyyyMMdd)$(Rev:.r)"
+          this:Process.Verbosity="[Microsoft.TeamFoundation.Build.Workflow.BuildVerbosity.Normal]"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:ccbta="clr-namespace:Coldwater.Construct.Tfs.Activities;assembly=Coldwater.Construct.Tfs.Activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mtbc="clr-namespace:Microsoft.TeamFoundation.Build.Client;assembly=Microsoft.TeamFoundation.Build.Client"
+ xmlns:mtbs="clr-namespace:Microsoft.TeamFoundation.Build.Server;assembly=Microsoft.TeamFoundation.Build.Server"
+ xmlns:mtbw="clr-namespace:Microsoft.TeamFoundation.Build.Workflow;assembly=Microsoft.TeamFoundation.Build.Workflow"
+ xmlns:mtfs="clr-namespace:Microsoft.TeamFoundation.Framework.Server;assembly=Microsoft.TeamFoundation.Framework.Server"
+ xmlns:mtws="clr-namespace:Microsoft.TeamFoundation.WorkItemTracking.Server;assembly=Microsoft.TeamFoundation.WorkItemTracking.Server.DataAccessLayer"
+ xmlns:mtbwa="clr-namespace:Microsoft.TeamFoundation.Build.Workflow.Activities;assembly=Microsoft.TeamFoundation.Build.Workflow"
+ xmlns:mtbwt="clr-namespace:Microsoft.TeamFoundation.Build.Workflow.Tracking;assembly=Microsoft.TeamFoundation.Build.Workflow"
+ xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:s1="clr-namespace:System;assembly=System"
+ xmlns:s2="clr-namespace:System;assembly=System.Xml"
+ xmlns:s3="clr-namespace:System;assembly=System.Core"
+ xmlns:s4="clr-namespace:System;assembly=System.ServiceModel"
+ xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+ xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System"
+ xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel"
+ xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core"
+ xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:sl="clr-namespace:System.Linq;assembly=System.Core"
+ xmlns:st="clr-namespace:System.Text;assembly=mscorlib"
+ xmlns:this="clr-namespace:Coldwater.Construct.ContinuousDeploy"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="AgentSettings" Type="InArgument(mtbwa:AgentSettings)" />
+    <x:Property Name="BuildNumberFormat" Type="InArgument(x:String)" />
+    <x:Property Name="Verbosity" Type="InArgument(mtbw:BuildVerbosity)" />
+    <x:Property Name="Metadata" Type="mtbw:ProcessParameterMetadataCollection" />
+    <x:Property Name="DeploymentPowerShellCommand" Type="InArgument(x:String)"/>
+    <x:Property Name="BuildVersionNumber" Type="InArgument(x:String)"/>
+    <x:Property Name="VersionFile" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+  </x:Members>
+  <this:Process.Metadata>
+    <mtbw:ProcessParameterMetadataCollection>
+      <mtbw:ProcessParameterMetadata BrowsableWhen="Always" Category="Basic" DisplayName="PowerShell Deployment Command" ParameterName="DeploymentPowerShellCommand" />
+      <mtbw:ProcessParameterMetadata BrowsableWhen="Always" Category="Versioning" DisplayName="Branch Version File" ParameterName="VersionFile" />
+    </mtbw:ProcessParameterMetadataCollection>
+  </this:Process.Metadata>
+  <sap:VirtualizedContainerService.HintSize>262,186</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldCollapseAll">True</x:Boolean>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Sequence sad:XamlDebuggerXmlReader.FileName="D:\src\construct-2010\Dev\BuildTemplates\Coldwater.Construct.ContinuousDeploy.xaml"
+            sap:VirtualizedContainerService.HintSize="222,146">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="mtbc:IBuildDetail" Name="BuildDetail" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <mtbwa:GetBuildDetail DisplayName="Get the Build" sap:VirtualizedContainerService.HintSize="222,22" mtbwt:BuildTrackingParticipant.Importance="Low" Result="[BuildDetail]" />
+    <mtbwa:InvokeForReason DisplayName="Update Build Number for Triggered Builds"
+                                 sap:VirtualizedContainerService.HintSize="269,100"
+                                 Reason="Triggered">
+      <mtbwa:InvokeForReason.Variables>
+        <Variable x:TypeArguments="x:String" Name="NewBuildVersionNumber" />
+      </mtbwa:InvokeForReason.Variables>
+      <ccbta:CreateBranchVersionNumber sap:VirtualizedContainerService.HintSize="200,22"
+                                       BuildDetails="[BuildDetail]"
+                                       Result="[NewBuildVersionNumber]"
+                                       VersionFile="[VersionFile]"
+                                       IncrementVersionFile="False"/>
+      <ccbta:UpdateVersionNumberInBuildNumber sap:VirtualizedContainerService.HintSize="200,22"
+                                              BuildNumberFormat="[BuildNumberFormat]"
+                                              Result="[BuildNumberFormat]"
+                                              VersionNumber="[NewBuildVersionNumber]"/>
+      <mtbwa:UpdateBuildNumber sap:VirtualizedContainerService.HintSize="200,22"
+                               BuildNumberFormat="[BuildNumberFormat]"
+                               DisplayName="Update Build Number" />
+      <If Condition="[(NewBuildVersionNumber.Contains(&quot;.&quot;))]">
+        <If.Then>
+          <Assign x:TypeArguments="x:String" DisplayName="Update Raw Build Version Number"
+                  sap:VirtualizedContainerService.HintSize="200,22"
+                  mtbwt:BuildTrackingParticipant.Importance="Low"
+                  To="[BuildVersionNumber]"
+                  Value="[NewBuildVersionNumber]" />
+
+        </If.Then>
+        <If.Else>
+          <Assign x:TypeArguments="x:String" DisplayName="Update Raw Build Version Number"
+                  sap:VirtualizedContainerService.HintSize="200,22"
+                  mtbwt:BuildTrackingParticipant.Importance="Low"
+                  To="[BuildVersionNumber]"
+                  Value="[String.Format(&quot;0.0.0.{0}&quot;,NewBuildVersionNumber)]" />
+        </If.Else>
+      </If>
+
+    </mtbwa:InvokeForReason>
+    <mtbwa:AgentScope DisplayName="Run On Agent"
+                      sap:VirtualizedContainerService.HintSize="222,448"
+                      MaxExecutionTime="[AgentSettings.MaxExecutionTime]"
+                      MaxWaitTime="[AgentSettings.MaxWaitTime]"
+                      ReservationSpec="[AgentSettings.GetAgentReservationSpec()]"
+                      mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+      <mtbwa:AgentScope.Variables>
+        <Variable x:TypeArguments="mtbc:IBuildAgent" Name="BuildAgent" />
+        <Variable x:TypeArguments="x:String" Name="BuildDirectory" />
+        <Variable x:TypeArguments="s:Exception" Name="deploymentException" />
+        <Variable x:TypeArguments="x:String" Name="Script" />
+      </mtbwa:AgentScope.Variables>
+
+      <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsPinned">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      <Sequence DisplayName="Initialize Variables" sap:VirtualizedContainerService.HintSize="222,729" mtbwt:BuildTrackingParticipant.Importance="Low">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <mtbwa:GetBuildAgent DisplayName="Get the Agent" sap:VirtualizedContainerService.HintSize="200,22"
+                             mtbwt:BuildTrackingParticipant.Importance="Low"
+                             Result="[BuildAgent]" />
+        <mtbwa:GetBuildDirectory DisplayName="Get the Build Directory"
+                                sap:VirtualizedContainerService.HintSize="200,22"
+                                mtbwt:BuildTrackingParticipant.Importance="Low"
+                                Result="[BuildDirectory]" />
+        <Assign x:TypeArguments="x:String" DisplayName="Initialize Script File Location"
+               sap:VirtualizedContainerService.HintSize="200,22"
+               mtbwt:BuildTrackingParticipant.Importance="Low"
+               To="[Script]"
+               Value="[String.Format(&quot;{0}\deploy.ps1&quot;, BuildDirectory)]" />
+      </Sequence>
+      <Sequence sap:VirtualizedContainerService.HintSize="576,595" mtbwt:BuildTrackingParticipant.Importance="None">
+
+        <ccbta:RunPowerShellScript sap:VirtualizedContainerService.HintSize="200,22"
+                                 CommandToRun="[DeploymentPowerShellCommand]"
+                                 RunLocally="True" />
+
+      </Sequence>
+    </mtbwa:AgentScope>
+    </Sequence>
+</Activity>

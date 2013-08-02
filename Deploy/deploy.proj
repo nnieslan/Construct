@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         DefaultTargets="Build"
+         ToolsVersion="4.0">
+
+  <!-- Insert any customizations for settings here -->
+  <Import Project="deploy.setting"/>
+
+  <ItemGroup>
+    <!--ProjectFiles Include="EnlistScripts\package.proj"/>-->
+    <ProjectFiles Include="BuildScripts\package.proj"/>
+    <ProjectFiles Include="NugetServer\package.proj"/>
+  </ItemGroup>
+  
+  <Import Project="$(ConstructFolder)\CWS.Build.Traversal.targets"/>
+
+  
+ </Project>

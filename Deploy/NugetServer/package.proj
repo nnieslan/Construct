@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         DefaultTargets="Build"
+         ToolsVersion="4.0">
+
+  <!-- Insert any customizations for settings here -->
+  <Import Project="..\deploy.setting"/>
+    
+  <ItemGroup>
+	<PackageTargets Include="PackageMSBuild" />
+  </ItemGroup>
+
+  <ItemGroup>
+        <ProjectFiles Include="..\..\dev\NugetServer\NugetServer.csproj"/>
+  </ItemGroup>
+    
+  <Import Project="$(ConstructFolder)\CWS.Build.Packaging.targets"/>
+    
+ </Project>

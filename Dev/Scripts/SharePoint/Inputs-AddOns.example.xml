@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ConfigureAddOns>
+  <OfficeWebApps>
+    <ConfigureSvcApps>1</ConfigureSvcApps>
+    <ActivateFeatures>1</ActivateFeatures>
+    <ServiceApplicationAppPool>OfficeWebApps_Shared_AppPool</ServiceApplicationAppPool>
+    <ServiceApplicationUserName>TEST\!svc.spservice</ServiceApplicationUserName>
+    <ServiceApplicationPassword>P@ssword1</ServiceApplicationPassword>
+  </OfficeWebApps>
+  
+  <SolutionsToAdd>
+    <wsp OverwriteExisting="1" 
+         Name="ExampleAddOnWsp1.wsp" 
+         Scope="WebApplication" 
+         Path="C:\Addons\ExampleAddOnWsp1.wsp"/>
+    <wsp OverwriteExisting="1" 
+         Name="ExampleAddOnWsp2.wsp" 
+         Scope="WebApplication" 
+         Path="C:\Addons\ExampleAddOnWsp2.wsp"/>
+  </SolutionsToAdd>
+
+</ConfigureAddOns>

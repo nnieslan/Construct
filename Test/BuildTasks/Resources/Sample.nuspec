@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ElevatePoint.Chart.WebPart</id>
+    <version>1.0.2010.0</version>
+    <authors>Coldwater Software</authors>
+    <owners>Coldwater Software</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ElevatePoint Chart WebPart - Built against SharePoint 2010</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Coldwater Software 2013</copyright>
+    <tags>SharePoint Chart HighChart 2010 2013</tags>
+  </metadata>
+</package>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharePointSolutions>
+  <FarmAdminAcct>
+    <UserName>TEST\!svc.spfarm</UserName>
+    <Password>P@ssword1</Password>
+  </FarmAdminAcct>
+  <wsp OverwriteExisting="1" Name="ExampleSolution1.wsp" Order="1" Scope="Farm">
+    <Feature Scope="Site">ExampleSolution1_ExampleFeature1</Feature>
+    <Feature Scope="Site">ExampleSolution1_ExampleFeature2</Feature>
+  </wsp>
+  <wsp OverwriteExisting="1" Name="ExampleSolution2.wsp" Order="2" Scope="Farm" >
+    <Feature Scope="WebApplication">ExampleSolution2_ExampleFeature1</Feature>
+  </wsp>
+  <wsp OverwriteExisting="1" Name="ExampleSolution3.wsp" Order="3" Scope="Farm" >
+    <Feature Scope="Farm">ExampleSolution3_ExampleFeature1</Feature>
+  </wsp>
+</SharePointSolutions>

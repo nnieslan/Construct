@@ -1,0 +1,24 @@
+Name,Value
+exp,"`$commaChar = [String][Char]0x2C; explorer.exe /e`${commaChar}."
+shelve,"tf shelve"
+unshelve,"tf unshelve"
+get,"tf get"
+co,"tf checkout"
+ci,"tf checkin"
+add,"tf add"
+revert,"tf undo"
+undo,"tf undo"
+delete,"tf delete"
+scorch,"tfpt scorch /noprompt /exclude:*.user"
+resolve,"tf resolve"
+status,"tf status"
+st,"tf status"
+uu,"tfpt uu /recursive"
+root,set-location $env:ENLISTROOT;
+dev,set-location $env:ENLISTROOT\Dev;
+test,set-location $env:ENLISTROOT\test;
+deploy,set-location $env:ENLISTROOT\deploy;
+bin,set-location $env:ENLISTROOT\bin;
+bl,root;rbc -skipTests -skipca;
+bi,root;build -skipTests;
+bc,root;rbc;

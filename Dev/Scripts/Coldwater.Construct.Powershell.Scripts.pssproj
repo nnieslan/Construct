@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{882fe663-057c-450c-bd2b-784affb20475}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MyApplication</RootNamespace>
+    <AssemblyName>MyApplication</AssemblyName>
+    <Name>Coldwater.Construct.Powershell.Scripts</Name>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Test" />
+    <Folder Include="Build" />
+    <Folder Include="Common" />
+    <Folder Include="Enlist" />
+    <Folder Include="SharePoint" />
+    <Folder Include="CodeAnalysis" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="build\Construct.config">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="build\ConstructConfig.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="CodeAnalysis\Dev.CodeAnalysis.ruleset" />
+    <Content Include="CodeAnalysis\Test.CodeAnalysis.ruleset" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="build\Construct.psm1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="build\Construct.psd1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="build\build.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="build\build-functions.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="build\deploy-functions.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="build\env-functions.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="build\vm-functions.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Coldwater.Construct.Powershell.Scripts.pssproj.vspscc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Common\common-functions.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Common\dns-functions.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Common\add-domain-users.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Common\git-functions.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Common\gittfs-functions.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Common\tfs-functions.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Enlist\tfsserverurl.txt">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Enlist\create-shortcut.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Enlist\enlist-gitrepo.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Enlist\enlist-tfsgitrepo.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Enlist\enlist-workspace.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Enlist\get-branches.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Enlist\get-teamprojects.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="SharePoint\init-addons.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="SharePoint\init-wsps.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="SharePoint\office-web-app-functions.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="SharePoint\sharepoint-functions.ps1">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="SharePoint\warmup-sharepoint.ps1">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SharePoint\Inputs-AddOns.example.xml" />
+    <Content Include="SharePoint\Inputs-WSPs.example.xml" />
+    <Content Include="Build\CWS.Build.tasks" />
+    <Content Include="Build\CWS.Build.Traversal.Global.setting" />
+    <Content Include="Build\CWS.Build.Packaging.targets" />
+    <Content Include="Build\CWS.Build.Traversal.targets" />
+    <Content Include="Build\aliases" />
+    <Content Include="Enlist\enlistme.cmd" />
+    <Content Include="Enlist\git-enlistme.cmd" />
+    <Content Include="Enlist\gittfs-enlistme.cmd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="Build">
+    <CreateItem Include="$(ProjectDir)\Build\*;$(ProjectDir)\Common\*;$(ProjectDir)\Enlist\*shortcut*">
+      <Output TaskParameter="Include" ItemName="BuildDistro" />
+    </CreateItem>
+    <CreateItem Include="$(ProjectDir)\Enlist\*;$(ProjectDir)\Common\*">
+      <Output TaskParameter="Include" ItemName="EnlistDistro" />
+    </CreateItem>
+    <MakeDir Directories="$(OutDir)\Build\" />
+    <Copy SourceFiles="@(BuildDistro)" DestinationFolder="$(OutDir)\Build\" SkipUnchangedFiles="True" />
+    <MakeDir Directories="$(OutDir)\Enlist\" />
+    <Copy SourceFiles="@(EnlistDistro)" DestinationFolder="$(OutDir)\Enlist\" SkipUnchangedFiles="True" />
+  </Target>
+</Project>

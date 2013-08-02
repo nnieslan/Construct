@@ -1,0 +1,20 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0">
+
+  <PropertyGroup>
+    <ConstructFolder Condition="'$(ConstructFolder)'=='' And Exists('$(ENLISTROOT)\build')">$(ENLISTROOT)\build\</ConstructFolder>
+    <ConstructFolder Condition="'$(ConstructFolder)'=='' And Exists('$(WORKSPACE)\build')">$(WORKSPACE)\build\</ConstructFolder>
+    <ConstructFolder Condition="'$(ConstructFolder)'=='' And Exists('$(USERPROFILE)\Documents\WindowsPowerShell\Modules\Construct')">$(USERPROFILE)\Documents\WindowsPowerShell\Modules\Construct\</ConstructFolder>
+  </PropertyGroup>
+
+  <Import Project="$(ConstructFolder)\cws.build.traversal.global.setting"/>
+
+  <!--
+  Global properties defined in this file
+  -->
+  <PropertyGroup>
+    <!-- local build environment-->
+
+  </PropertyGroup>
+
+</Project>
