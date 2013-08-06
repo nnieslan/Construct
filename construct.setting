@@ -7,7 +7,7 @@
     <ConstructFolder Condition="'$(ConstructFolder)'=='' And Exists('$(USERPROFILE)\Documents\WindowsPowerShell\Modules\Construct')">$(USERPROFILE)\Documents\WindowsPowerShell\Modules\Construct\</ConstructFolder>
   </PropertyGroup>
 
-  <Import Project="$(ConstructFolder)\cws.build.traversal.global.setting"/>
+  <Import Project="$(ConstructFolder)\construct.build.traversal.global.setting"/>
 
   <!--
   Global properties defined in this file

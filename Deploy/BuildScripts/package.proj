@@ -32,6 +32,6 @@
         <Copy SourceFiles="@(BinariesToZip)" DestinationFolder="$(OutDir)Build"/>
   </Target>
 
-  <Import Project="$(ConstructFolder)\CWS.Build.Packaging.targets"/>
+  <Import Project="$(ConstructFolder)\Construct.Build.Packaging.targets"/>
     
  </Project>

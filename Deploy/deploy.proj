@@ -12,7 +12,7 @@
     <ProjectFiles Include="NugetServer\package.proj"/>
   </ItemGroup>
   
-  <Import Project="$(ConstructFolder)\CWS.Build.Traversal.targets"/>
+  <Import Project="$(ConstructFolder)\Construct.Build.Traversal.targets"/>
 
   
  </Project>
