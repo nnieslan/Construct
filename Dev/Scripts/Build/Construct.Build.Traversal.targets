@@ -110,12 +110,12 @@
 
     <Message Text="Incoming Prefiltered Project = %(ProjectFiles.Identity)" Importance="Normal"/>
     <Message Text="Project Filter Regex = $(FilterRegex)" Importance="Normal"/>
-    <Coldwater.Construct.Build.Tasks.RegexFilterTask
+    <Construct.Build.Tasks.RegexFilterTask
       ItemsToFilter="@(ProjectFiles)"
       RegexPattern="$(FilterRegex)">
       <Output TaskParameter="OutputItems" ItemName="FilteredProjectFiles"/>
       <Output TaskParameter="ItemCount" ItemName="FilteredProjectCount"/>
-    </Coldwater.Construct.Build.Tasks.RegexFilterTask>
+    </Construct.Build.Tasks.RegexFilterTask>
     <Message Condition=" '%(FilteredProjectFiles.Identity)' != '' "
              Text="Filtered Project: %(FilteredProjectFiles.Identity)"
              Importance="Normal"/>
@@ -131,13 +131,13 @@
     </ReadLinesFromFile>
     <Message Importance="Low" Text="TfsServerUrl = @(TfsServerUrl)" />
 
-    <Coldwater.Construct.Build.Tasks.ProjectEditsPendingTask
+    <Construct.Build.Tasks.ProjectEditsPendingTask
       Condition="'@(TfsServerUrl)'!='' And ('$(BuildType)'!='COR' And '$(BuildType)'!='CI')"
       TfsServerUrl="@(TfsServerUrl)"
       Projects="@(FilteredProjectFiles)"
       ProjectExtensionFilter="$(ProjectExtensionFilter)">
       <Output TaskParameter="OutputItems" ItemName="EditsPendingProjectFiles"/>
-    </Coldwater.Construct.Build.Tasks.ProjectEditsPendingTask>
+    </Construct.Build.Tasks.ProjectEditsPendingTask>
 
     <ItemGroup Condition="'@(TfsServerUrl)'=='' Or ('$(BuildType)'=='COR' Or '$(BuildType)'=='CI')">
       <EditsPendingProjectFiles Include="@(FilteredProjectFiles)"/>
@@ -246,12 +246,12 @@
 
     <Message Text="Incoming Prefiltered Project = %(ProjectFiles.Identity)" Importance="Normal"/>
     <Message Text="Project Filter Regex = $(FilterRegex)" Importance="Normal"/>
-    <Coldwater.Construct.Build.Tasks.RegexFilterTask
+    <Construct.Build.Tasks.RegexFilterTask
       ItemsToFilter="@(ProjectFiles)"
       RegexPattern="$(FilterRegex)">
       <Output TaskParameter="OutputItems" ItemName="FilteredProjectFiles"/>
       <Output TaskParameter="ItemCount" ItemName="FilteredProjectCount"/>
-    </Coldwater.Construct.Build.Tasks.RegexFilterTask>
+    </Construct.Build.Tasks.RegexFilterTask>
     <Message Condition=" '%(FilteredProjectFiles.Identity)' != '' "
              Text="Filtered Project: %(FilteredProjectFiles.Identity)"
              Importance="Normal"/>
