@@ -19,7 +19,7 @@ namespace Construct.Tfs.Activities
     [BuildActivity(HostEnvironmentOption.Agent)]
     public class PublishNuGetPackage : CodeActivity
     {
-        private const string ConstructTfsUserAgent = "Coldwater Construct TFS NuGet Activity";
+        private const string ConstructTfsUserAgent = "Construct TFS NuGet Activity";
 
         #region properties
 

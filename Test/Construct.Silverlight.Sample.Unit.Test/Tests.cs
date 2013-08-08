@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using Microsoft.Silverlight.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Coldwater.Construct.Silverlight.Sample.Unit.Test
+namespace Construct.Silverlight.Sample.Unit.Test
 {
     [TestClass]
     public class Tests

@@ -132,7 +132,7 @@ namespace Construct.Build.Activities.Test {
         ///    BEGIN
         ///        BLOCK &quot;040904e4&quot;
         ///        BEGIN
-        ///            VALUE &quot;CompanyName&quot;, &quot;Coldwater Software&quot;
+        ///            VALUE &quot;CompanyName&quot;, &quot;NT Prime LLC&quot;
         ///            VALUE &quot;FileDescription&quot;, &quot;Construct&quot;
         ///            VALUE &quot;FileVersion&quot;, &quot;1.2.3.4&quot;
         ///            VALUE &quot;InternalName&quot;, &quot;Construct.exe&quot;

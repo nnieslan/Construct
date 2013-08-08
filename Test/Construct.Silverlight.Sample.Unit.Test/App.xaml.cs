@@ -2,7 +2,7 @@
 using System.Windows;
 using Microsoft.Silverlight.Testing;
 
-namespace Coldwater.Construct.Silverlight.Sample.Unit.Test
+namespace Construct.Silverlight.Sample.Unit.Test
 {
     public partial class App : Application
     {

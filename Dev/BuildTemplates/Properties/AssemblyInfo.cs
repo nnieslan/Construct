@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Coldwater Construct TFS Build Templates")]
+[assembly: AssemblyTitle("Construct TFS Build Templates")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Coldwater Software")]
-[assembly: AssemblyProduct("Coldwater Construct")]
-[assembly: AssemblyCopyright("Copyright © Coldwater Software 2011")]
+[assembly: AssemblyCompany("NT Prime LLC")]
+[assembly: AssemblyProduct("Construct")]
+[assembly: AssemblyCopyright("Copyright © NT Prime LLC 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

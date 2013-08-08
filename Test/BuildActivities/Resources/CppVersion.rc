@@ -16,11 +16,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "Coldwater Software"
+            VALUE "CompanyName", "NT Prime LLC"
             VALUE "FileDescription", "Construct"
             VALUE "FileVersion", "1.2.3.4"
             VALUE "InternalName", "Construct.exe"
-            VALUE "LegalCopyright", "(c) 2010-2012 Coldwater Software, All rights reserved."
+            VALUE "LegalCopyright", "(c) 2013 NT Prime LLC, All rights reserved."
             VALUE "OriginalFilename", "Construct.exe"
             VALUE "ProductName", "Construct"
             VALUE PRODUCTVERSION 1,2,3,4

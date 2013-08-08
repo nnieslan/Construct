@@ -131,7 +131,7 @@
     <value>Resources\CppVersion.rc;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="SampleNuGetPackage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Coldwater.Construct.Silverlight.Sample.Unit.Test.1.0.0.nupkg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Resources\Construct.Silverlight.Sample.Unit.Test.1.0.0.nupkg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="simple_ps1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\simple.ps1;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

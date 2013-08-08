@@ -151,12 +151,12 @@
 
     <Message Text="Incoming Prefiltered Project = %(ProjectFiles.Identity)" Importance="Normal"/>
     <Message Text="Project Filter Regex = $(FilterRegex)" Importance="Normal"/>
-    <Coldwater.Construct.Build.Tasks.RegexFilterTask
+    <Construct.Build.Tasks.RegexFilterTask
       ItemsToFilter="@(ProjectFiles)"
       RegexPattern="$(FilterRegex)">
       <Output TaskParameter="OutputItems" ItemName="FilteredProjectFiles"/>
       <Output TaskParameter="ItemCount" ItemName="FilteredProjectCount"/>
-    </Coldwater.Construct.Build.Tasks.RegexFilterTask>
+    </Construct.Build.Tasks.RegexFilterTask>
     <Message Condition=" '%(FilteredProjectFiles.Identity)' != '' "
              Text="Filtered Project: %(FilteredProjectFiles.Identity)"
              Importance="Normal"/>

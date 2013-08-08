@@ -1,6 +1,6 @@
 ﻿<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-             x:Class="Coldwater.Construct.Silverlight.Sample.Unit.Test.App"
+             x:Class="Construct.Silverlight.Sample.Unit.Test.App"
              >
     <Application.Resources>
         
