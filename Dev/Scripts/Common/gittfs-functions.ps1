@@ -1,5 +1,5 @@
 ﻿#==============================================================================
-# Copyright (c) Coldwater Software. All Rights Reserved.
+# Copyright (c) NT Prime LLC. All Rights Reserved.
 #==============================================================================
 
 #git-tfs-functions.ps1

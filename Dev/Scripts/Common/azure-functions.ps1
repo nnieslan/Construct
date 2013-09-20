@@ -1,8 +1,8 @@
 ﻿$Global:TimeStampFormat = "g"
 
 # load the required dll
-[void][System.Reflection.Assembly]::LoadFile("$env:PROGRAMFILES\Microsoft SDKs\Windows Azure\.NET SDK\2012-10\bin\Microsoft.WindowsAzure.StorageClient.dll")
-$references = @("$env:PROGRAMFILES\Microsoft SDKs\Windows Azure\.NET SDK\2012-10\bin\Microsoft.WindowsAzure.StorageClient.dll")
+[void][System.Reflection.Assembly]::LoadFile("$env:ProgramW6432\Microsoft SDKs\Windows Azure\.NET SDK\2012-10\bin\Microsoft.WindowsAzure.StorageClient.dll")
+$references = @("$env:ProgramW6432\Microsoft SDKs\Windows Azure\.NET SDK\2012-10\bin\Microsoft.WindowsAzure.StorageClient.dll")
 
 Add-Type -ReferencedAssemblies $references `
 		 -TypeDefinition "
