@@ -1,4 +1,4 @@
-function fourbuild-project
+﻿function fourbuild-project
 {
     param
     (

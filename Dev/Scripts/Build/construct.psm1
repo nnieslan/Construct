@@ -1,4 +1,4 @@
-#==============================================================================
+﻿#==============================================================================
 # Copyright (c) NT Prime LLC. All Rights Reserved.
 #==============================================================================
 
@@ -82,7 +82,9 @@ if (IsConfigurationModuleEnabled("GitHub")) {
 	$githubAddIn = Resolve-Path "$env:LOCALAPPDATA\GitHub\shell.ps1"
     if($githubAddIn -ne $null -and Test-Path -Path $githubAddIn) {
        . (Resolve-Path "$githubAddIn")
-    }
+    } else {
+	
+	}
 }
 
 #navigated the command prompt to the root of the environment
